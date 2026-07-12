@@ -2,102 +2,159 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DSA Master Sheets</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DSA Roadmap</title>
+<meta name="theme-color" content="#0A0E14">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="notes.css">
 </head>
 <body>
 
-<header class="app-header">
-  <div class="app-title">DSA Master Sheets</div>
-  <div class="header-actions">
-    <button class="icon-btn" id="export-btn" title="Download your progress as a JSON file">⬇ Export progress</button>
-    <button class="icon-btn" id="import-btn" title="Load a previously exported progress file">⬆ Import progress</button>
-    <input type="file" id="import-file" accept="application/json" class="sr-only" aria-label="Import progress file">
-    <button class="theme-toggle" id="theme-toggle">☀️ Light</button>
-  </div>
-</header>
+<!-- Ambient background glows -->
+<div class="bg-aura" aria-hidden="true">
+  <span class="aura aura-a"></span>
+  <span class="aura aura-b"></span>
+  <span class="aura aura-c"></span>
+</div>
 
-<nav class="tab-nav">
-  <button class="tab-btn active" data-tab="priority">Priority Sheet</button>
-  <button class="tab-btn" data-tab="practice">Practice</button>
-</nav>
+<div class="app-shell">
 
-<main class="page">
-
-  <div id="priority" class="tab-panel active">
-    <section class="sheet-section priority-sheet">
-      <div class="priority-header">
-        <div class="priority-title">Priority Sheet</div>
-        <div class="priority-total" id="priority-total"></div>
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="hero">
+    <div class="hero-main">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span> Interview Prep · Priority Roadmap
       </div>
-      <div class="legend-row">
-        <span>⚪ Not attempted</span>
-        <span>🟢 Mastered</span>
-        <span>🟡 Needs revision</span>
-        <span>🔴 Couldn't solve</span>
-      </div>
-      <nav class="topic-index" id="topic-index"></nav>
-      <div id="priority-sections"></div>
-    </section>
-  </div>
+      <h1 class="hero-title">DSA Roadmap</h1>
+      <p class="hero-subtitle" id="hero-subtitle">Master one pattern at a time. Consistency beats intensity.</p>
 
-  <div id="practice" class="tab-panel">
-    <section class="sheet-section">
-      <div class="priority-header">
-        <div class="priority-title">Practice</div>
-      </div>
-      <div class="legend-row">
-        <span>⚪ Not attempted</span>
-        <span>🟢 Mastered</span>
-        <span>🟡 Needs revision</span>
-        <span>🔴 Couldn't solve</span>
-      </div>
-
-      <div class="stat-cards" id="stat-cards"></div>
-
-      <div class="picker-section">
-        <h2>📅 Daily Review</h2>
-        <div class="daily-list" id="daily-list"></div>
-      </div>
-
-      <div class="picker-section">
-        <h2>🎲 Random Question</h2>
-        <div class="picker-actions">
-          <select class="filter-select" id="random-filter">
-            <option value="all">Any status</option>
-            <option value="not-attempted">⚪ Not attempted</option>
-            <option value="mastered">🟢 Mastered</option>
-            <option value="revision">🟡 Needs revision</option>
-            <option value="failed">🔴 Couldn't solve</option>
-          </select>
-          <button class="btn" id="random-btn">Pick a question</button>
+      <div class="hero-controls">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.2-3.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" id="search-input" class="search-input" placeholder="Search topics or problems…" autocomplete="off" spellcheck="false">
+          <kbd class="search-kbd">/</kbd>
         </div>
-        <div id="random-result"></div>
+        <div class="filter-chips" id="filter-chips" role="tablist" aria-label="Filter topics">
+          <button class="chip is-active" data-filter="all" role="tab">All</button>
+          <button class="chip" data-filter="completed" role="tab"><span class="chip-dot dot-green"></span>Completed</button>
+          <button class="chip" data-filter="in-progress" role="tab"><span class="chip-dot dot-blue"></span>In Progress</button>
+          <button class="chip" data-filter="not-started" role="tab"><span class="chip-dot dot-grey"></span>Not Started</button>
+        </div>
+        <a class="revision-cta" href="revision.html" title="Open the revision sheet — patterns &amp; Python solutions">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H19a1 1 0 0 1 1 1v13.5a1 1 0 0 1-1 1H7.5A2.5 2.5 0 0 0 5 21V5.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M5 5.5A2.5 2.5 0 0 0 7.5 8H20" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <span>Revision Sheet</span>
+        </a>
       </div>
 
-      <div class="picker-section">
-        <h2>🔍 Search all questions</h2>
-        <div class="practice-toolbar">
-          <input class="search-input" id="search-input" type="text" placeholder="Search by problem name...">
-          <select class="filter-select" id="search-status-filter">
-            <option value="all">All statuses</option>
-            <option value="not-attempted">⚪ Not attempted</option>
-            <option value="mastered">🟢 Mastered</option>
-            <option value="revision">🟡 Needs revision</option>
-            <option value="failed">🔴 Couldn't solve</option>
-          </select>
-        </div>
-        <div class="search-results" id="search-results"></div>
+      <div class="tool-row">
+        <button class="tool-btn tool-exam" id="open-exam">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v5h5M9 13l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Mock Exam</span>
+        </button>
+        <button class="tool-btn tool-find" id="open-finder">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.2-3.2M11 8v6M8 11h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span>Find / Add Question</span>
+        </button>
+        <button class="tool-btn tool-remove-stuck" id="remove-stuck">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Remove Stuck</span>
+        </button>
+        <button class="tool-btn tool-view-hidden" id="view-hidden">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19M1 1l22 22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Hidden</span>
+        </button>
       </div>
-    </section>
+    </div>
+
+    <!-- Overall progress ring -->
+    <div class="hero-ring">
+      <div class="ring-card">
+        <svg class="ring-svg" viewBox="0 0 180 180" aria-hidden="true">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#3B82F6"/>
+              <stop offset="55%" stop-color="#8B5CF6"/>
+              <stop offset="100%" stop-color="#10B981"/>
+            </linearGradient>
+          </defs>
+          <circle class="ring-track" cx="90" cy="90" r="76"/>
+          <circle class="ring-progress" id="ring-progress" cx="90" cy="90" r="76"/>
+        </svg>
+        <div class="ring-center">
+          <span class="ring-pct" id="ring-pct">0%</span>
+          <span class="ring-label">Complete</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ STATS ============ -->
+  <section class="stats-row" id="stats-row" aria-label="Overall statistics"></section>
+
+  <!-- ============ BODY: sidebar + main ============ -->
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar" aria-label="Topics">
+      <div class="sidebar-head">
+        <span class="sidebar-head-label">Topics</span>
+        <button class="sidebar-toggle" id="sidebar-toggle" title="Collapse sidebar" aria-label="Collapse sidebar">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <nav class="sidebar-nav" id="sidebar-nav"></nav>
+    </aside>
+
+    <main class="main" id="main">
+      <div id="sections-root"></div>
+      <div class="empty-state" id="empty-state" hidden>
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.2-3.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <p class="empty-title">No topics match</p>
+        <p class="empty-sub">Try a different search or filter.</p>
+      </div>
+    </main>
+
   </div>
 
-</main>
+  <footer class="app-footer">
+    <span>DSA Roadmap · progress saved locally in your browser</span>
+  </footer>
+</div>
+
+<!-- Peek tab — shows on left edge when desktop sidebar is collapsed -->
+<button class="sidebar-peek" id="sidebar-peek" aria-label="Open sidebar" title="Open sidebar">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<!-- Mobile sidebar trigger -->
+<button class="fab-topics" id="fab-topics" aria-label="Open topics">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  <span>Topics</span>
+</button>
+<div class="scrim" id="scrim" hidden></div>
+
+<!-- Modal (exam / finder) -->
+<div class="modal-root" id="modal-root" hidden>
+  <div class="modal-scrim" data-close></div>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-head">
+      <h2 class="modal-title" id="modal-title"></h2>
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
 
 <script src="questions.js"></script>
+<script src="solutions.js"></script>
+<script src="notes-data.js"></script>
 <script src="app.js"></script>
+<script src="notes.js"></script>
 </body>
 </html>

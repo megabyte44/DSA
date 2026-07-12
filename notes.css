@@ -1,0 +1,190 @@
+/* ============================================================
+   DSA Roadmap — Notes & Complexity + User Notes styling
+   ============================================================ */
+
+/* ── Notes button ─────────────────────────────────────────── */
+.notes-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-left: 8px; padding: 4px 9px;
+  font: 600 11.5px/1 var(--font);
+  color: var(--green);
+  background: rgba(16, 185, 129, 0.10);
+  border: 1px solid rgba(16, 185, 129, 0.30);
+  border-radius: var(--radius-xs);
+  cursor: pointer; white-space: nowrap;
+  transition: background .18s var(--ease), transform .18s var(--ease), border-color .18s var(--ease);
+}
+.notes-btn:hover {
+  background: rgba(16, 185, 129, 0.20);
+  border-color: rgba(16, 185, 129, 0.55);
+  transform: translateY(-1px);
+}
+.notes-icon { font-size: 11px; line-height: 1; }
+
+/* ── Edit button ──────────────────────────────────────────── */
+.edit-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  position: relative;
+  margin-left: 6px; padding: 4px 7px;
+  color: var(--text-3);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: color .18s var(--ease), background .18s var(--ease),
+              border-color .18s var(--ease), transform .18s var(--ease);
+}
+.edit-btn:hover {
+  color: var(--blue);
+  background: rgba(59, 130, 246, 0.10);
+  border-color: rgba(59, 130, 246, 0.35);
+  transform: translateY(-1px);
+}
+/* indicator dot when user has saved notes */
+.edit-btn .edit-dot {
+  display: none;
+  position: absolute; top: 2px; right: 2px;
+  width: 6px; height: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+}
+.edit-btn.has-note {
+  color: var(--blue);
+  border-color: rgba(59, 130, 246, 0.35);
+  background: rgba(59, 130, 246, 0.08);
+}
+.edit-btn.has-note .edit-dot { display: block; }
+.edit-icon { width: 13px; height: 13px; }
+
+@media (max-width: 560px) {
+  .notes-label { display: none; }
+  .notes-btn   { padding: 5px 7px; }
+  .edit-btn    { padding: 4px 6px; }
+}
+
+/* ── Notes panel (view modal) ─────────────────────────────── */
+.notes-panel {
+  display: flex; flex-direction: column; gap: 20px;
+  padding: 2px 0;
+}
+.notes-q-name {
+  font: 600 15px/1.4 var(--font);
+  color: var(--text);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.notes-section {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.notes-section-title {
+  display: flex; align-items: center; gap: 8px;
+  font: 700 12px/1 var(--font);
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.notes-section-icon { font-size: 13px; }
+.notes-section-body {
+  font: 400 14px/1.7 var(--font);
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+/* user's own note gets a blue left accent */
+.notes-user-body {
+  border-left: 3px solid var(--blue);
+  background: rgba(59, 130, 246, 0.04);
+  white-space: pre-wrap;
+}
+
+/* ── Complexity grid ──────────────────────────────────────── */
+.notes-complexity-grid {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.notes-complexity-row {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 10px 14px;
+}
+.notes-complexity-label {
+  font: 600 12px/1 var(--font);
+  color: var(--text-2);
+  width: 42px; flex-shrink: 0;
+}
+.notes-complexity-value {
+  font: 500 13.5px/1 ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  color: var(--green);
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.20);
+  border-radius: 5px;
+  padding: 3px 9px;
+}
+
+/* ── Edit panel (write modal) ─────────────────────────────── */
+.edit-panel {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.edit-q-name {
+  font: 600 14px/1.4 var(--font);
+  color: var(--text-2);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.user-note-ta {
+  width: 100%; min-height: 180px; resize: vertical;
+  padding: 12px 14px; box-sizing: border-box;
+  background: var(--bg); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font: 400 13.5px/1.65 var(--font);
+  transition: border-color .18s var(--ease);
+}
+.user-note-ta:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+.edit-actions {
+  display: flex; align-items: center; gap: 10px;
+}
+.edit-save-btn {
+  padding: 9px 20px;
+  background: var(--blue); color: #fff;
+  border: 0; border-radius: var(--radius-xs);
+  font: 600 13px/1 var(--font); cursor: pointer;
+  transition: filter .18s var(--ease), transform .18s var(--ease);
+}
+.edit-save-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.edit-clear-btn {
+  padding: 9px 16px;
+  background: transparent; color: var(--text-3);
+  border: 1px solid var(--border); border-radius: var(--radius-xs);
+  font: 500 13px/1 var(--font); cursor: pointer;
+  transition: color .18s var(--ease), border-color .18s var(--ease);
+}
+.edit-clear-btn:hover { color: var(--red, #EF4444); border-color: var(--red, #EF4444); }
+.edit-hint {
+  font: 400 11.5px/1.5 var(--font);
+  color: var(--text-3);
+}
+
+/* ── Hidden questions list ───────────────────────────────── */
+.hidden-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 9px 12px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+}
+.hidden-name {
+  font: 400 13px/1.4 var(--font); color: var(--text-2);
+  flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.hidden-restore {
+  flex-shrink: 0; padding: 4px 10px;
+  font: 500 12px/1 var(--font);
+  color: var(--green); border-color: rgba(16,185,129,.35);
+}
+.hidden-restore:hover { background: rgba(16,185,129,.1); }

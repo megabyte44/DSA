@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSA Master Sheets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="app-title">DSA Master Sheets</div>
+  <div class="header-actions">
+    <button class="icon-btn" id="export-btn" title="Download your progress as a JSON file">⬇ Export progress</button>
+    <button class="icon-btn" id="import-btn" title="Load a previously exported progress file">⬆ Import progress</button>
+    <input type="file" id="import-file" accept="application/json" class="sr-only" aria-label="Import progress file">
+    <button class="theme-toggle" id="theme-toggle">☀️ Light</button>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="priority">Priority Sheet</button>
+  <button class="tab-btn" data-tab="practice">Practice</button>
+</nav>
+
+<main class="page">
+
+  <div id="priority" class="tab-panel active">
+    <div class="priority-layout">
+
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-inner">
+          <div class="sidebar-title">Topics</div>
+          <nav id="sidebar-nav"></nav>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <div class="priority-main">
+        <section class="sheet-section priority-sheet">
+          <div class="priority-header">
+            <div class="priority-title">Priority Sheet</div>
+            <div class="priority-total" id="priority-total"></div>
+          </div>
+          <div class="legend-row">
+            <span>⚪ Not attempted</span>
+            <span>🟢 Mastered</span>
+            <span>🟡 Needs revision</span>
+            <span>🔴 Couldn't solve</span>
+          </div>
+          <nav class="topic-index sr-only" id="topic-index"></nav>
+          <div id="priority-sections"></div>
+        </section>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="practice" class="tab-panel">
+    <section class="sheet-section">
+      <div class="priority-header">
+        <div class="priority-title">Practice</div>
+      </div>
+      <div class="legend-row">
+        <span>⚪ Not attempted</span>
+        <span>🟢 Mastered</span>
+        <span>🟡 Needs revision</span>
+        <span>🔴 Couldn't solve</span>
+      </div>
+
+      <div class="stat-cards" id="stat-cards"></div>
+
+      <div class="picker-section">
+        <h2>📅 Daily Review</h2>
+        <div class="daily-list" id="daily-list"></div>
+      </div>
+
+      <div class="picker-section">
+        <h2>🎲 Random Question</h2>
+        <div class="picker-actions">
+          <select class="filter-select" id="random-filter">
+            <option value="all">Any status</option>
+            <option value="not-attempted">⚪ Not attempted</option>
+            <option value="mastered">🟢 Mastered</option>
+            <option value="revision">🟡 Needs revision</option>
+            <option value="failed">🔴 Couldn't solve</option>
+          </select>
+          <button class="btn" id="random-btn">Pick a question</button>
+        </div>
+        <div id="random-result"></div>
+      </div>
+
+      <div class="picker-section">
+        <h2>🔍 Search all questions</h2>
+        <div class="practice-toolbar">
+          <input class="search-input" id="search-input" type="text" placeholder="Search by problem name...">
+          <select class="filter-select" id="search-status-filter">
+            <option value="all">All statuses</option>
+            <option value="not-attempted">⚪ Not attempted</option>
+            <option value="mastered">🟢 Mastered</option>
+            <option value="revision">🟡 Needs revision</option>
+            <option value="failed">🔴 Couldn't solve</option>
+          </select>
+        </div>
+        <div class="search-results" id="search-results"></div>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<script src="questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

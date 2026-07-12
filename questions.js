@@ -248,9 +248,6 @@ const QUESTION_BANK = {
               "label": "Subarray with given XOR",
               "questions": [
                 {
-                  "id": "gfg:subarray-with-given-xor"
-                },
-                {
                   "id": "gfg:count-subarrays-with-given-xor"
                 }
               ]
@@ -306,9 +303,6 @@ const QUESTION_BANK = {
             {
               "label": "Prefix XOR",
               "questions": [
-                {
-                  "id": "gfg:subarray-with-given-xor"
-                },
                 {
                   "id": "gfg:count-subarrays-with-given-xor"
                 },
@@ -1152,98 +1146,165 @@ const QUESTION_BANK = {
     },
     {
       "id": "dp-basic",
-      "label": "DP - 1D + Knapsack only",
+      "label": "DP — Core Patterns",
       "tier": 2,
       "cards": [
         {
-          "id": "c1d",
-          "title": "1D DP",
-          "color": "#378ADD",
+          "id": "dp-linear",
+          "title": "Fibonacci / Linear DP",
+          "color": "#60a5fa",
+          "guide": {
+            "signal": "dp[i] depends only on a few previous values. Keywords: \"min cost\", \"max sum\", \"number of ways\", single array.",
+            "template": "# Fibonacci / recurrence\ndp = [0] * (n + 1)\ndp[0], dp[1] = base0, base1\nfor i in range(2, n + 1):\n    dp[i] = dp[i-1] + dp[i-2]   # or max/min variant\n\n# Space-optimised (only last 2 needed)\na, b = base0, base1\nfor _ in range(2, n + 1):\n    a, b = b, a + b\nreturn b\n\n# House Robber (skip / no-skip)\ndp[i] = max(dp[i-1], dp[i-2] + nums[i])"
+          },
           "sections": [
             {
-              "label": "",
+              "label": "Fibonacci / staircase",
               "questions": [
                 {
-                  "id": "lc:climbing-stairs",
-                  "initialStatus": "mastered"
+                  "id": "lc:climbing-stairs"
                 },
                 {
-                  "id": "lc:min-cost-climbing-stairs",
-                  "initialStatus": "mastered"
+                  "id": "lc:min-cost-climbing-stairs"
                 },
                 {
-                  "id": "lc:house-robber",
-                  "initialStatus": "mastered"
+                  "id": "lc:n-th-tribonacci-number"
                 },
                 {
-                  "id": "lc:house-robber-ii",
-                  "initialStatus": "mastered"
+                  "id": "lc:perfect-squares"
                 },
                 {
-                  "id": "lc:maximum-subarray",
-                  "initialStatus": "mastered"
+                  "id": "lc:fibonacci-number"
                 },
                 {
-                  "id": "lc:maximum-product-subarray",
-                  "initialStatus": "mastered"
+                  "id": "lc:last-stone-weight"
                 },
                 {
-                  "id": "lc:decode-ways",
-                  "add": true
+                  "id": "lc:jump-game-vi"
                 },
                 {
-                  "id": "lc:word-break",
-                  "add": true
+                  "id": "lc:jump-game-iii"
+                }
+              ]
+            },
+            {
+              "label": "Skip-or-take (House Robber pattern)",
+              "questions": [
+                {
+                  "id": "lc:house-robber"
                 },
                 {
-                  "id": "lc:longest-increasing-subsequence",
-                  "add": true
+                  "id": "lc:house-robber-ii"
+                },
+                {
+                  "id": "lc:house-robber-iii"
+                },
+                {
+                  "id": "lc:delete-and-earn"
+                }
+              ]
+            },
+            {
+              "label": "String / decode DP",
+              "questions": [
+                {
+                  "id": "lc:decode-ways"
+                },
+                {
+                  "id": "lc:word-break"
+                },
+                {
+                  "id": "lc:count-vowels-permutation"
+                }
+              ]
+            },
+            {
+              "label": "Scheduling / miscellaneous",
+              "questions": [
+                {
+                  "id": "lc:minimum-cost-for-tickets"
+                },
+                {
+                  "id": "lc:paint-house"
+                },
+                {
+                  "id": "lc:integer-break"
+                },
+                {
+                  "id": "lc:stone-game"
                 }
               ]
             }
-          ],
-          "group": "Core"
+          ]
         },
         {
-          "id": "pknap",
-          "title": "Knapsack",
-          "color": "#D85A30",
+          "id": "dp-01knap",
+          "title": "0/1 Knapsack",
+          "color": "#f59e0b",
+          "guide": {
+            "signal": "Each item used AT MOST ONCE. Keywords: \"partition\", \"subset sum\", \"can we reach W?\". Reverse-iterate inner loop.",
+            "template": "# 2-D (classic)\ndp = [[False]*(W+1) for _ in range(n+1)]\ndp[0][0] = True\nfor i, w_i in enumerate(weights, 1):\n    for w in range(W+1):\n        dp[i][w] = dp[i-1][w]\n        if w >= w_i:\n            dp[i][w] |= dp[i-1][w - w_i]\n\n# 1-D space-optimised — REVERSE inner loop!\ndp = [False] * (W + 1)\ndp[0] = True\nfor num in nums:\n    for w in range(W, num - 1, -1):   # <-- reverse\n        dp[w] |= dp[w - num]"
+          },
           "sections": [
             {
-              "label": "",
+              "label": "Core (can we reach sum W?)",
               "questions": [
                 {
-                  "id": "lc:coin-change",
-                  "initialStatus": "mastered"
+                  "id": "lc:partition-equal-subset-sum"
                 },
                 {
-                  "id": "lc:target-sum",
-                  "initialStatus": "mastered"
+                  "id": "lc:target-sum"
                 },
                 {
-                  "id": "lc:partition-equal-subset-sum",
-                  "add": true
+                  "id": "lc:last-stone-weight-ii"
+                }
+              ]
+            },
+            {
+              "label": "Multi-constraint / harder",
+              "questions": [
+                {
+                  "id": "lc:ones-and-zeroes"
                 },
                 {
-                  "id": "lc:coin-change-ii",
-                  "add": true
-                },
-                {
-                  "id": "lc:ones-and-zeroes",
-                  "add": true
-                },
-                {
-                  "id": "lc:last-stone-weight-ii",
-                  "add": true
-                },
-                {
-                  "id": "lc:length-of-the-longest-subsequence-that-sums-to-target",
-                  "add": true
+                  "id": "lc:length-of-the-longest-subsequence-that-sums-to-target"
                 }
               ]
             }
-          ],
-          "group": "Pattern Types"
+          ]
+        },
+        {
+          "id": "dp-unbounded",
+          "title": "Unbounded Knapsack",
+          "color": "#34d399",
+          "guide": {
+            "signal": "Items can be reused any number of times. Keywords: \"fewest coins\", \"how many ways\", \"using each denomination freely\". Forward-iterate inner loop.",
+            "template": "# Unbounded — FORWARD inner loop!\ndp = [float('inf')] * (amount + 1)\ndp[0] = 0\nfor i in range(1, amount + 1):\n    for coin in coins:\n        if i >= coin:\n            dp[i] = min(dp[i], dp[i - coin] + 1)\n\n# Counting ways variant\ndp = [0] * (amount + 1)\ndp[0] = 1\nfor coin in coins:             # outer = items\n    for w in range(coin, amount + 1):   # forward\n        dp[w] += dp[w - coin]"
+          },
+          "sections": [
+            {
+              "label": "Minimum count",
+              "questions": [
+                {
+                  "id": "lc:coin-change"
+                },
+                {
+                  "id": "lc:perfect-squares"
+                }
+              ]
+            },
+            {
+              "label": "Count ways",
+              "questions": [
+                {
+                  "id": "lc:coin-change-ii"
+                },
+                {
+                  "id": "lc:combination-sum-iv"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -1633,434 +1694,286 @@ const QUESTION_BANK = {
     },
     {
       "id": "dp-advanced",
-      "label": "DP - 2D + Sequence",
+      "label": "DP — 2D, Sequences & Advanced",
       "tier": 3,
       "cards": [
         {
-          "id": "c2d",
-          "title": "2D DP",
-          "color": "#378ADD",
+          "id": "dp-lis",
+          "title": "LIS / Subsequences",
+          "color": "#a78bfa",
+          "guide": {
+            "signal": "Find longest/number of increasing (or custom-ordered) subsequences. O(n²) with nested loop; O(n log n) with binary search.",
+            "template": "# O(n²) — dp[i] = LIS ending AT index i\ndp = [1] * n\nfor i in range(n):\n    for j in range(i):\n        if nums[j] < nums[i]:\n            dp[i] = max(dp[i], dp[j] + 1)\nreturn max(dp)\n\n# O(n log n) — patience sort / tails array\nimport bisect\ntails = []\nfor x in nums:\n    pos = bisect.bisect_left(tails, x)\n    if pos == len(tails): tails.append(x)\n    else: tails[pos] = x\nreturn len(tails)"
+          },
           "sections": [
             {
-              "label": "",
+              "label": "Classic LIS",
               "questions": [
                 {
-                  "id": "lc:unique-paths",
-                  "add": true
+                  "id": "lc:longest-increasing-subsequence"
                 },
                 {
-                  "id": "lc:unique-paths-ii",
-                  "add": true
+                  "id": "lc:number-of-longest-increasing-subsequence"
                 },
                 {
-                  "id": "lc:minimum-path-sum",
-                  "add": true
+                  "id": "lc:longest-arithmetic-subsequence"
+                }
+              ]
+            },
+            {
+              "label": "Variants",
+              "questions": [
+                {
+                  "id": "lc:maximum-alternating-subsequence-sum"
                 },
                 {
-                  "id": "lc:longest-common-subsequence",
-                  "add": true
+                  "id": "lc:maximum-subarray"
                 },
                 {
-                  "id": "lc:edit-distance",
-                  "add": true
-                },
-                {
-                  "id": "lc:maximal-square",
-                  "add": true
+                  "id": "lc:maximum-product-subarray"
                 }
               ]
             }
-          ],
-          "group": "Core"
+          ]
         },
         {
-          "id": "pseq",
-          "title": "Sequence DP",
-          "color": "#D85A30",
+          "id": "dp-lcs",
+          "title": "LCS / Sequence Matching",
+          "color": "#f472b6",
+          "guide": {
+            "signal": "Compare two sequences character by character. 2-D grid; diagonal = match, right/down = skip one side.",
+            "template": "# LCS\ndp = [[0]*(m+1) for _ in range(n+1)]\nfor i in range(1, n+1):\n    for j in range(1, m+1):\n        if s[i-1] == t[j-1]:\n            dp[i][j] = dp[i-1][j-1] + 1\n        else:\n            dp[i][j] = max(dp[i-1][j], dp[i][j-1])\n\n# Edit Distance  (replace/insert/delete)\nif s[i-1] == t[j-1]:\n    dp[i][j] = dp[i-1][j-1]\nelse:\n    dp[i][j] = 1 + min(dp[i-1][j-1],   # replace\n                        dp[i-1][j],      # delete\n                        dp[i][j-1])      # insert"
+          },
           "sections": [
             {
-              "label": "",
+              "label": "LCS core",
               "questions": [
                 {
-                  "id": "lc:is-subsequence",
-                  "initialStatus": "mastered"
+                  "id": "lc:is-subsequence"
                 },
                 {
-                  "id": "lc:longest-palindromic-substring",
-                  "initialStatus": "mastered"
+                  "id": "lc:longest-common-subsequence"
                 },
                 {
-                  "id": "lc:palindromic-substrings",
-                  "initialStatus": "mastered"
+                  "id": "lc:shortest-common-supersequence"
+                }
+              ]
+            },
+            {
+              "label": "Edit / transform",
+              "questions": [
+                {
+                  "id": "lc:edit-distance"
                 },
                 {
-                  "id": "lc:longest-common-subsequence",
-                  "add": true
+                  "id": "lc:distinct-subsequences"
                 },
                 {
-                  "id": "lc:edit-distance",
-                  "add": true
-                },
+                  "id": "lc:interleaving-string"
+                }
+              ]
+            },
+            {
+              "label": "Regex / hard",
+              "questions": [
                 {
-                  "id": "lc:shortest-common-supersequence",
-                  "add": true
-                },
-                {
-                  "id": "lc:distinct-subsequences",
-                  "add": true
-                },
-                {
-                  "id": "lc:minimum-insertion-steps-to-make-a-string-palindrome",
-                  "add": true
+                  "id": "lc:regular-expression-matching",
+                  "hard": true
                 }
               ]
             }
-          ],
-          "group": "Pattern Types"
+          ]
         },
         {
-          "id": "tlin",
-          "title": "Linear DP",
-          "color": "#1D9E75",
+          "id": "dp-palindrome",
+          "title": "Palindrome DP",
+          "color": "#fb923c",
+          "guide": {
+            "signal": "Expand from centre (substrings) or 2-D interval dp[i][j] (subsequences). Start with length-1 then expand outward.",
+            "template": "# Expand from centre — O(n²) time, O(1) space\ndef expand(l, r):\n    while l >= 0 and r < n and s[l] == s[r]:\n        l -= 1; r += 1\n    return s[l+1:r]          # longest palindrome centred here\n\nfor i in range(n):\n    expand(i, i)    # odd length\n    expand(i, i+1)  # even length\n\n# 2-D interval DP (subsequences)\ndp = [[0]*n for _ in range(n)]\nfor i in range(n): dp[i][i] = 1\nfor length in range(2, n+1):\n    for i in range(n - length + 1):\n        j = i + length - 1\n        if s[i] == s[j]:\n            dp[i][j] = dp[i+1][j-1] + 2\n        else:\n            dp[i][j] = max(dp[i+1][j], dp[i][j-1])"
+          },
           "sections": [
             {
-              "label": "",
+              "label": "Substring palindromes (expand from centre)",
               "questions": [
                 {
-                  "id": "lc:climbing-stairs",
-                  "initialStatus": "mastered"
+                  "id": "lc:longest-palindromic-substring"
                 },
                 {
-                  "id": "lc:min-cost-climbing-stairs",
-                  "initialStatus": "mastered"
+                  "id": "lc:palindromic-substrings"
+                }
+              ]
+            },
+            {
+              "label": "Subsequence palindromes (interval DP)",
+              "questions": [
+                {
+                  "id": "lc:longest-palindromic-subsequence"
                 },
                 {
-                  "id": "lc:maximum-subarray",
-                  "initialStatus": "mastered"
+                  "id": "lc:minimum-insertion-steps-to-make-a-string-palindrome"
                 },
                 {
-                  "id": "lc:longest-increasing-subsequence",
-                  "add": true
-                },
-                {
-                  "id": "lc:number-of-longest-increasing-subsequence",
-                  "add": true
-                },
-                {
-                  "id": "lc:longest-arithmetic-subsequence",
-                  "add": true
+                  "id": "lc:palindrome-partitioning-ii"
                 }
               ]
             }
-          ],
-          "group": "Transition Type"
+          ]
         },
         {
-          "id": "tgrid",
-          "title": "Grid DP",
-          "color": "#1D9E75",
+          "id": "dp-grid",
+          "title": "Grid / 2D DP",
+          "color": "#22d3ee",
+          "guide": {
+            "signal": "Move on a 2-D grid (usually right/down). dp[i][j] comes from dp[i-1][j] and dp[i][j-1].",
+            "template": "# Count paths\ndp = [[0]*cols for _ in range(rows)]\ndp[0][0] = 1\nfor i in range(rows):\n    for j in range(cols):\n        if i > 0: dp[i][j] += dp[i-1][j]\n        if j > 0: dp[i][j] += dp[i][j-1]\n\n# Min cost path\ndp[0][0] = grid[0][0]\nfor i in range(rows):\n    for j in range(cols):\n        best = min(dp[i-1][j] if i else inf,\n                   dp[i][j-1] if j else inf)\n        dp[i][j] = grid[i][j] + (best if best < inf else 0)"
+          },
           "sections": [
             {
-              "label": "",
+              "label": "Path counting",
               "questions": [
                 {
-                  "id": "lc:unique-paths",
-                  "add": true
+                  "id": "lc:unique-paths"
                 },
                 {
-                  "id": "lc:unique-paths-ii",
-                  "add": true
+                  "id": "lc:unique-paths-ii"
                 },
                 {
-                  "id": "lc:minimum-path-sum",
-                  "add": true
+                  "id": "lc:out-of-boundary-paths"
+                }
+              ]
+            },
+            {
+              "label": "Min / max cost path",
+              "questions": [
+                {
+                  "id": "lc:minimum-path-sum"
                 },
                 {
-                  "id": "lc:minimum-falling-path-sum",
-                  "add": true
+                  "id": "lc:triangle"
                 },
                 {
-                  "id": "lc:longest-increasing-path-in-a-matrix",
-                  "add": true
+                  "id": "lc:minimum-falling-path-sum"
                 },
                 {
                   "id": "lc:dungeon-game",
-                  "add": true
+                  "hard": true
+                }
+              ]
+            },
+            {
+              "label": "Matrix patterns",
+              "questions": [
+                {
+                  "id": "lc:maximal-square"
+                },
+                {
+                  "id": "lc:longest-increasing-path-in-a-matrix",
+                  "hard": true
+                },
+                {
+                  "id": "lc:minimum-falling-path-sum-ii"
+                },
+                {
+                  "id": "lc:number-of-paths-with-max-score"
+                },
+                {
+                  "id": "lc:cherry-pickup-ii"
                 }
               ]
             }
           ]
         },
         {
-          "id": "tdec",
-          "title": "Decision DP",
-          "color": "#1D9E75",
+          "id": "dp-stock",
+          "title": "Stock / State Machine DP",
+          "color": "#f87171",
+          "guide": {
+            "signal": "Finite set of states (hold / sold / rest). dp[state] or dp[day][state][k] where k = transactions left.",
+            "template": "# State machine — cooldown example\nhold = -inf   # currently holding stock\nsold = 0      # just sold (must rest next)\nrest = 0      # resting (can buy next)\n\nfor price in prices:\n    hold, sold, rest = (\n        max(hold, rest - price),   # buy or keep holding\n        hold + price,              # sell today\n        max(rest, sold)            # rest or recover from sold\n    )\nreturn max(sold, rest)\n\n# k transactions: dp[k][0/1] — no hold / holding"
+          },
           "sections": [
             {
-              "label": "",
+              "label": "Unlimited transactions",
               "questions": [
                 {
-                  "id": "lc:house-robber",
-                  "initialStatus": "mastered"
+                  "id": "lc:best-time-to-buy-and-sell-stock"
                 },
                 {
-                  "id": "lc:house-robber-ii",
-                  "initialStatus": "mastered"
+                  "id": "lc:best-time-to-buy-and-sell-stock-ii"
                 },
                 {
-                  "id": "lc:best-time-to-buy-and-sell-stock",
-                  "initialStatus": "mastered"
-                },
+                  "id": "lc:best-time-to-buy-and-sell-stock-with-transaction-fee"
+                }
+              ]
+            },
+            {
+              "label": "With constraints (cooldown / k txns)",
+              "questions": [
                 {
-                  "id": "lc:best-time-to-buy-and-sell-stock-ii",
-                  "add": true
-                },
-                {
-                  "id": "lc:best-time-to-buy-and-sell-stock-iii",
-                  "add": true
+                  "id": "lc:best-time-to-buy-and-sell-stock-iii"
                 },
                 {
                   "id": "lc:best-time-to-buy-and-sell-stock-iv",
-                  "add": true
+                  "hard": true
                 },
                 {
-                  "id": "lc:best-time-to-buy-and-sell-stock-with-cooldown",
-                  "add": true
-                },
-                {
-                  "id": "lc:best-time-to-buy-and-sell-stock-with-transaction-fee",
-                  "add": true
+                  "id": "lc:best-time-to-buy-and-sell-stock-with-cooldown"
                 }
               ]
             }
           ]
         },
         {
-          "id": "ppart",
-          "title": "Partition DP",
-          "color": "#D85A30",
+          "id": "dp-partition",
+          "title": "Partition / Interval DP",
+          "color": "#4ade80",
+          "guide": {
+            "signal": "Split array/string into segments or process ALL sub-intervals [i,j]. Start small intervals first.",
+            "template": "# Interval DP — Burst Balloons style\ndp = [[0]*n for _ in range(n)]\nfor length in range(1, n+1):\n    for i in range(n - length + 1):\n        j = i + length - 1\n        for k in range(i, j+1):   # k is last to burst\n            dp[i][j] = max(dp[i][j],\n                           val[i-1]*val[k]*val[j+1]\n                           + dp[i][k-1] + dp[k+1][j])\n\n# Array partition — Split Array Largest Sum style\n# dp[i] = best answer for first i elements\nfor i in range(1, n+1):\n    for j in range(i):\n        dp[i] = min(dp[i], max(dp[j], subarray_cost(j, i)))"
+          },
           "sections": [
             {
-              "label": "",
+              "label": "Array partition",
               "questions": [
                 {
                   "id": "lc:split-array-largest-sum",
-                  "initialStatus": "mastered"
+                  "hard": true
                 },
                 {
-                  "id": "lc:palindrome-partitioning-ii",
-                  "add": true
+                  "id": "lc:partition-array-for-maximum-sum"
                 },
                 {
-                  "id": "lc:largest-sum-of-averages",
-                  "add": true
+                  "id": "lc:largest-sum-of-averages"
                 },
                 {
                   "id": "lc:minimum-cost-to-cut-a-stick",
-                  "add": true
+                  "hard": true
                 },
                 {
-                  "id": "lc:partition-array-for-maximum-sum",
-                  "add": true
+                  "id": "lc:partition-to-k-equal-sum-subsets"
+                },
+                {
+                  "id": "lc:matchsticks-to-square"
                 }
               ]
-            }
-          ],
-          "group": "Pattern Types"
-        },
-        {
-          "id": "pint",
-          "title": "Interval DP",
-          "color": "#D85A30",
-          "sections": [
+            },
             {
-              "label": "",
+              "label": "Interval DP (process all [i,j])",
               "questions": [
                 {
-                  "id": "lc:longest-palindromic-subsequence",
-                  "add": true
-                },
-                {
                   "id": "lc:burst-balloons",
-                  "add": true
+                  "hard": true
                 },
                 {
-                  "id": "lc:minimum-score-triangulation-of-polygon",
-                  "add": true
+                  "id": "lc:minimum-score-triangulation-of-polygon"
                 },
                 {
-                  "id": "lc:minimum-insertion-steps-to-make-a-string-palindrome",
-                  "add": true
-                },
-                {
-                  "id": "lc:guess-number-higher-or-lower-ii",
-                  "add": true
+                  "id": "lc:guess-number-higher-or-lower-ii"
                 },
                 {
                   "id": "lc:strange-printer",
-                  "add": true
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "abm",
-          "title": "Bitmask DP",
-          "color": "#7F77DD",
-          "sections": [
-            {
-              "label": "",
-              "questions": [
-                {
-                  "id": "lc:beautiful-arrangement",
-                  "add": true
-                },
-                {
-                  "id": "lc:fair-distribution-of-cookies",
-                  "add": true
-                },
-                {
-                  "id": "lc:shortest-path-visiting-all-nodes",
-                  "add": true
-                },
-                {
-                  "id": "lc:smallest-sufficient-team",
-                  "add": true
-                },
-                {
-                  "id": "lc:stickers-to-spell-word",
-                  "add": true
-                }
-              ]
-            }
-          ],
-          "group": "Advanced"
-        },
-        {
-          "id": "adgt",
-          "title": "Digit DP",
-          "color": "#7F77DD",
-          "sections": [
-            {
-              "label": "",
-              "questions": [
-                {
-                  "id": "lc:count-numbers-with-unique-digits",
-                  "add": true
-                },
-                {
-                  "id": "lc:count-sorted-vowel-strings",
-                  "add": true
-                },
-                {
-                  "id": "lc:number-of-digit-one",
-                  "add": true
-                },
-                {
-                  "id": "lc:count-special-integers",
-                  "add": true
-                },
-                {
-                  "id": "lc:numbers-at-most-n-given-digit-set",
-                  "add": true
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "adtr",
-          "title": "DP on Trees",
-          "color": "#7F77DD",
-          "sections": [
-            {
-              "label": "",
-              "questions": [
-                {
-                  "id": "lc:house-robber-iii",
-                  "add": true
-                },
-                {
-                  "id": "lc:diameter-of-binary-tree",
-                  "add": true
-                },
-                {
-                  "id": "lc:binary-tree-maximum-path-sum",
-                  "add": true
-                },
-                {
-                  "id": "lc:binary-tree-cameras",
-                  "add": true
-                },
-                {
-                  "id": "lc:maximum-product-of-splitted-binary-tree",
-                  "add": true
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "omem",
-          "title": "Memoization (top-down)",
-          "color": "#BA7517",
-          "sections": [
-            {
-              "label": "",
-              "questions": [
-                {
-                  "id": "lc:target-sum",
-                  "initialStatus": "mastered"
-                },
-                {
-                  "id": "lc:out-of-boundary-paths",
-                  "add": true
-                },
-                {
-                  "id": "lc:word-break-ii",
-                  "add": true
-                },
-                {
-                  "id": "lc:palindrome-partitioning",
-                  "add": true
-                },
-                {
-                  "id": "lc:number-of-ways-of-cutting-a-pizza",
-                  "add": true
-                }
-              ]
-            }
-          ],
-          "group": "Optimization"
-        },
-        {
-          "id": "otab",
-          "title": "Tabulation (bottom-up)",
-          "color": "#BA7517",
-          "sections": [
-            {
-              "label": "",
-              "questions": [
-                {
-                  "id": "lc:coin-change",
-                  "initialStatus": "mastered"
-                },
-                {
-                  "id": "lc:unique-paths",
-                  "add": true
-                },
-                {
-                  "id": "lc:longest-common-subsequence",
-                  "add": true
-                },
-                {
-                  "id": "lc:maximal-square",
-                  "add": true
-                },
-                {
-                  "id": "lc:count-ways-to-build-good-strings",
-                  "add": true
+                  "hard": true
                 }
               ]
             }
@@ -2412,9 +2325,6 @@ const QUESTION_BANK = {
             {
               "label": "",
               "questions": [
-                {
-                  "id": "gfg:subarray-with-given-xor"
-                },
                 {
                   "id": "gfg:count-subarrays-with-given-xor"
                 },
@@ -2813,12 +2723,6 @@ const QUESTION_BANK = {
       "source": "leetcode",
       "hard": false
     },
-    "gfg:subarray-with-given-xor": {
-      "name": "Subarray XOR Equals K (GFG)",
-      "url": "https://www.geeksforgeeks.org/problems/subarray-with-given-xor/1",
-      "source": "gfg",
-      "hard": false
-    },
     "gfg:count-subarrays-with-given-xor": {
       "name": "Count Subarrays with XOR K (GFG)",
       "url": "https://www.geeksforgeeks.org/problems/count-subarray-with-given-xor/1",
@@ -2982,9 +2886,9 @@ const QUESTION_BANK = {
       "hard": false
     },
     "lc:jump-game-vi": {
-      "name": "Jump Game VI",
+      "name": "1696. Jump Game VI",
       "url": "https://leetcode.com/problems/jump-game-vi/",
-      "source": "leetcode",
+      "source": "lc",
       "hard": false
     },
     "lc:two-sum-ii-input-array-is-sorted": {
@@ -4839,6 +4743,132 @@ const QUESTION_BANK = {
       "name": "Range Min Query — Sparse Table (GFG)",
       "url": "https://www.geeksforgeeks.org/problems/sparse-table/1",
       "source": "gfg",
+      "hard": false
+    },
+    "lc:n-th-tribonacci-number": {
+      "name": "1137. N-th Tribonacci Number",
+      "url": "https://leetcode.com/problems/n-th-tribonacci-number/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:delete-and-earn": {
+      "name": "740. Delete and Earn",
+      "url": "https://leetcode.com/problems/delete-and-earn/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:paint-house": {
+      "name": "256. Paint House",
+      "url": "https://leetcode.com/problems/paint-house/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:minimum-cost-for-tickets": {
+      "name": "983. Minimum Cost for Tickets",
+      "url": "https://leetcode.com/problems/minimum-cost-for-tickets/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:count-vowels-permutation": {
+      "name": "1220. Count Vowels Permutation",
+      "url": "https://leetcode.com/problems/count-vowels-permutation/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:integer-break": {
+      "name": "343. Integer Break",
+      "url": "https://leetcode.com/problems/integer-break/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:stone-game": {
+      "name": "877. Stone Game",
+      "url": "https://leetcode.com/problems/stone-game/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:combination-sum-iv": {
+      "name": "377. Combination Sum IV",
+      "url": "https://leetcode.com/problems/combination-sum-iv/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:perfect-squares": {
+      "name": "279. Perfect Squares",
+      "url": "https://leetcode.com/problems/perfect-squares/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:triangle": {
+      "name": "120. Triangle",
+      "url": "https://leetcode.com/problems/triangle/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:maximum-alternating-subsequence-sum": {
+      "name": "1911. Maximum Alternating Subsequence Sum",
+      "url": "https://leetcode.com/problems/maximum-alternating-subsequence-sum/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:interleaving-string": {
+      "name": "97. Interleaving String",
+      "url": "https://leetcode.com/problems/interleaving-string/",
+      "source": "leetcode",
+      "hard": false
+    },
+    "lc:regular-expression-matching": {
+      "name": "10. Regular Expression Matching",
+      "url": "https://leetcode.com/problems/regular-expression-matching/",
+      "source": "leetcode",
+      "hard": true
+    },
+    "lc:fibonacci-number": {
+      "name": "509. Fibonacci Number",
+      "url": "https://leetcode.com/problems/fibonacci-number/",
+      "source": "lc",
+      "hard": false
+    },
+    "lc:last-stone-weight": {
+      "name": "1046. Last Stone Weight",
+      "url": "https://leetcode.com/problems/last-stone-weight/",
+      "source": "lc",
+      "hard": false
+    },
+    "lc:number-of-paths-with-max-score": {
+      "name": "1301. Number of Paths with Max Score",
+      "url": "https://leetcode.com/problems/number-of-paths-with-max-score/",
+      "source": "lc",
+      "hard": true
+    },
+    "lc:minimum-falling-path-sum-ii": {
+      "name": "1289. Minimum Falling Path Sum II",
+      "url": "https://leetcode.com/problems/minimum-falling-path-sum-ii/",
+      "source": "lc",
+      "hard": false
+    },
+    "lc:cherry-pickup-ii": {
+      "name": "1463. Cherry Pickup II",
+      "url": "https://leetcode.com/problems/cherry-pickup-ii/",
+      "source": "lc",
+      "hard": false
+    },
+    "lc:partition-to-k-equal-sum-subsets": {
+      "name": "698. Partition to K Equal Sum Subsets",
+      "url": "https://leetcode.com/problems/partition-to-k-equal-sum-subsets/",
+      "source": "lc",
+      "hard": false
+    },
+    "lc:matchsticks-to-square": {
+      "name": "473. Matchsticks to Square",
+      "url": "https://leetcode.com/problems/matchsticks-to-square/",
+      "source": "lc",
+      "hard": false
+    },
+    "lc:jump-game-iii": {
+      "name": "1306. Jump Game III",
+      "url": "https://leetcode.com/problems/jump-game-iii/",
+      "source": "lc",
       "hard": false
     }
   }

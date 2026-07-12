@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DSA Revision · Patterns & Solutions</title>
+<meta name="theme-color" content="#0A0E14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0E14; --bg-elev:#0d1320; --card:rgba(255,255,255,.04); --card-hover:rgba(255,255,255,.07);
+  --card-solid:#11161f; --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.14);
+  --text:#fff; --text-2:#A1A1AA; --text-3:#71717A;
+  --blue:#3B82F6; --purple:#8B5CF6; --green:#10B981; --orange:#F59E0B; --red:#EF4444;
+  --radius:20px; --radius-sm:13px; --radius-xs:9px;
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --maxw:1080px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:15px;line-height:1.5;
+  letter-spacing:-.011em;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+::selection{background:rgba(139,92,246,.35);color:#fff}
+
+.aura{position:fixed;border-radius:50%;filter:blur(100px);opacity:.45;z-index:-1;pointer-events:none}
+.aura-a{width:520px;height:520px;background:#1e3a8a;top:-180px;left:-120px}
+.aura-b{width:460px;height:460px;background:#4c1d95;top:-120px;right:-100px}
+.aura-c{width:520px;height:420px;background:#064e3b;bottom:-220px;left:30%}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:32px 22px 96px}
+
+.hero{margin-bottom:26px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--text-2);
+  letter-spacing:.02em;text-transform:uppercase;margin-bottom:14px}
+.eyebrow .d{width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--green));
+  box-shadow:0 0 12px var(--blue)}
+h1.title{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.03em;line-height:1.05}
+.subtitle{color:var(--text-2);margin-top:8px;max-width:56ch;font-size:15px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text-3);margin-bottom:18px;
+  transition:color .2s}
+.back:hover{color:var(--text)}
+
+.overall{margin-top:22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.bar{flex:1 1 260px;height:9px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;min-width:200px}
+.bar > i{display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--blue),var(--purple) 55%,var(--green));transition:width .5s ease}
+.overall .pct{font-size:13.5px;color:var(--text-2);font-weight:500;white-space:nowrap}
+.overall .pct b{color:var(--text);font-weight:700}
+
+.controls{position:sticky;top:0;z-index:20;display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  padding:14px 0 16px;margin-top:18px;background:linear-gradient(180deg,var(--bg) 72%,transparent)}
+.search{position:relative;flex:1 1 280px;min-width:220px}
+.search input{width:100%;padding:11px 14px 11px 40px;border-radius:13px;background:var(--card);
+  border:1px solid var(--border);color:var(--text);font-size:14px;outline:none;transition:border-color .2s,background .2s}
+.search input::placeholder{color:var(--text-3)}
+.search input:focus{border-color:var(--border-strong);background:var(--card-hover)}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--text-3)}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{padding:9px 14px;border-radius:11px;background:var(--card);border:1px solid var(--border);
+  font-size:13px;font-weight:500;color:var(--text-2);transition:.2s;display:inline-flex;align-items:center;gap:7px}
+.chip:hover{background:var(--card-hover);color:var(--text)}
+.chip.on{background:rgba(139,92,246,.16);border-color:rgba(139,92,246,.5);color:#fff}
+.chip .cd{width:7px;height:7px;border-radius:50%}
+.expand-all{margin-left:auto;font-size:12.5px;color:var(--text-3);display:inline-flex;gap:14px}
+.expand-all button:hover{color:var(--text)}
+
+.tier-h{display:flex;align-items:baseline;gap:11px;margin:30px 2px 14px;flex-wrap:wrap}
+.tier-h .tdot{width:9px;height:9px;border-radius:50%;align-self:center}
+.tier-h h2{font-size:16.5px;font-weight:650;letter-spacing:-.01em}
+.tier-h .note{font-size:12.5px;color:var(--text-3)}
+[data-tier="1"] .tdot,.t1{background:var(--red)} [data-tier="2"] .tdot,.t2{background:var(--orange)}
+[data-tier="3"] .tdot,.t3{background:#FACC15} [data-tier="4"] .tdot,.t4{background:var(--green)}
+
+.pat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  margin-bottom:12px;overflow:hidden;transition:border-color .2s}
+.pat:hover{border-color:var(--border-strong)}
+.pat-head{display:flex;align-items:center;gap:13px;padding:15px 18px;user-select:none}
+.pat-head:hover{background:var(--card-hover)}
+.pat-head .dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;box-shadow:0 0 10px -1px currentColor}
+.pat-titles{flex:1;min-width:0}
+.pat-titles h3{font-size:15.5px;font-weight:600;letter-spacing:-.01em}
+.pat-titles .intro{font-size:12.5px;color:var(--text-3);margin-top:3px;line-height:1.45;
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.pat.open .pat-titles .intro{-webkit-line-clamp:unset;overflow:visible;color:var(--text-2)}
+.pat-prog{font-size:12.5px;font-weight:600;color:var(--text-2);background:rgba(255,255,255,.05);
+  padding:4px 10px;border-radius:99px;border:1px solid var(--border);white-space:nowrap;flex-shrink:0}
+.pat-prog.done{color:var(--green);border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.1)}
+.chev{color:var(--text-3);transition:transform .25s ease;flex-shrink:0;font-size:13px}
+.pat.open .chev{transform:rotate(180deg)}
+.pat-body{display:none;padding:2px 14px 14px}
+.pat.open .pat-body{display:block}
+
+.q{border:1px solid var(--border);border-radius:var(--radius-sm);margin-top:10px;background:var(--bg-elev);
+  overflow:hidden;border-left:3px solid transparent;transition:border-color .2s}
+.q[data-status="revisit"]{border-left-color:var(--orange)}
+.q[data-status="done"]{border-left-color:var(--green)}
+.q-top{display:flex;align-items:center;gap:9px;padding:12px 14px;flex-wrap:wrap}
+.q-name{font-size:14px;font-weight:550;flex:1;min-width:140px;transition:color .2s}
+.q-name:hover{color:var(--blue)}
+.q[data-status="done"] .q-name{color:var(--text-3)}
+.badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:99px;letter-spacing:.02em;flex-shrink:0;
+  text-transform:uppercase}
+.b-hard{background:rgba(239,68,68,.16);color:#fca5a5}
+.b-gfg{background:rgba(16,185,129,.16);color:#6ee7b7}
+.b-lc{background:rgba(245,158,11,.14);color:#fcd34d}
+.q-status{font-size:12px;font-weight:550;padding:6px 24px 6px 9px;border-radius:9px;background:var(--card);
+  border:1px solid var(--border);color:var(--text-2);outline:none;cursor:pointer;flex-shrink:0;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2371717A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 9px center}
+.q-status[data-v="revisit"]{color:#fcd34d;border-color:rgba(245,158,11,.45);background-color:rgba(245,158,11,.1)}
+.q-status[data-v="done"]{color:#6ee7b7;border-color:rgba(16,185,129,.45);background-color:rgba(16,185,129,.1)}
+.q-meta{padding:0 14px 11px;font-size:12.5px;color:var(--text-2);display:flex;gap:8px;flex-wrap:wrap;line-height:1.5}
+.q-meta .cx{color:var(--text-3);font-family:var(--mono);font-size:11.5px}
+.q-meta .sep{color:var(--text-3)}
+
+.sol-toggle{margin:0 14px 12px;font-size:12.5px;font-weight:550;color:var(--text-2);
+  display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:9px;
+  background:var(--card);border:1px solid var(--border);transition:.2s}
+.sol-toggle:hover{background:var(--card-hover);color:var(--text);border-color:var(--border-strong)}
+.sol-toggle .pl{transition:transform .2s;font-weight:600;font-size:14px;line-height:1}
+.sol-toggle.open .pl{transform:rotate(45deg)}
+.sol{display:none;margin:0 14px 14px;position:relative;border-radius:12px;overflow:hidden;
+  border:1px solid var(--border);background:#0b0f17}
+.sol.open{display:block}
+.sol-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;
+  background:rgba(255,255,255,.03);border-bottom:1px solid var(--border)}
+.sol-lang{font-size:11px;font-weight:600;color:var(--text-3);letter-spacing:.06em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:7px}
+.sol-lang .py{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#3B82F6,#FACC15)}
+.copy{font-size:11.5px;font-weight:550;color:var(--text-2);display:inline-flex;align-items:center;gap:6px;
+  padding:5px 10px;border-radius:7px;transition:.2s}
+.copy:hover{background:rgba(255,255,255,.07);color:var(--text)}
+.copy.ok{color:var(--green)}
+pre{margin:0;padding:15px 16px;overflow-x:auto}
+pre code{font-family:var(--mono);font-size:12.5px;line-height:1.65;color:#d7dde8;white-space:pre;
+  tab-size:4;display:block}
+.tk{color:#c792ea} .ts{color:#c3e88d} .tc{color:#5f6b7d;font-style:italic} .tn{color:#f78c6c} .tf{color:#82aaff}
+
+.empty{text-align:center;padding:70px 20px;color:var(--text-3)}
+.empty p{margin-top:8px}
+.footnote{margin-top:34px;padding-top:20px;border-top:1px solid var(--border);font-size:12.5px;color:var(--text-3);
+  line-height:1.6}
+.footnote code{font-family:var(--mono);font-size:11.5px;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:5px}
+
+@media(max-width:640px){
+  .wrap{padding:22px 14px 80px}
+  .expand-all{margin-left:0;width:100%;order:5}
+  .pat-titles .intro{-webkit-line-clamp:2}
+}
+</style>
+</head>
+<body>
+<span class="aura aura-a"></span><span class="aura aura-b"></span><span class="aura aura-c"></span>
+
+<div class="wrap">
+  <a class="back" href="index.html">&#8592; Back to roadmap</a>
+
+  <div class="hero">
+    <div class="eyebrow"><span class="d"></span> Quick Revision &middot; Pattern &#8594; Signature Problems</div>
+    <h1 class="title">Revision Sheet</h1>
+    <p class="subtitle">One screen per pattern: the 2&ndash;4 problems worth re-solving before an interview, each with a clean Python solution. Mark what still needs a second pass.</p>
+
+    <div class="overall">
+      <div class="bar"><i id="ov-bar"></i></div>
+      <div class="pct"><b id="ov-done">0</b> / <span id="ov-total">0</span> done &middot; <span id="ov-pct">0%</span></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.2-3.2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="search" type="text" placeholder="Search a pattern or problem..." autocomplete="off" spellcheck="false">
+    </div>
+    <div class="chips" id="tier-chips">
+      <button class="chip on" data-tier="all">All tiers</button>
+      <button class="chip" data-tier="1"><span class="cd t1"></span>Tier 1</button>
+      <button class="chip" data-tier="2"><span class="cd t2"></span>Tier 2</button>
+      <button class="chip" data-tier="3"><span class="cd t3"></span>Tier 3</button>
+      <button class="chip" data-tier="4"><span class="cd t4"></span>Tier 4</button>
+    </div>
+    <div class="expand-all">
+      <button id="expand-all">Expand all</button>
+      <button id="collapse-all">Collapse all</button>
+    </div>
+  </div>
+
+  <div id="root"></div>
+  <div class="empty" id="empty" hidden><p style="font-size:16px;color:var(--text-2)">No matches</p><p>Try another search or tier.</p></div>
+
+  <p class="footnote">
+    Progress here is saved separately in your browser (key <code>dsa-revision-v1</code>) so it won't touch your main roadmap.
+    Solutions are reference implementations in Python &mdash; re-derive them, don't just read them.
+  </p>
+</div>
+
+<script src="questions.js"></script>
+<script src="solutions.js"></script>
+<script>
+(function(){
+  "use strict";
+  var BANK = (typeof QUESTION_BANK !== 'undefined') ? QUESTION_BANK : null;
+  var DATA = (typeof REVISION_DATA !== 'undefined') ? REVISION_DATA : null;
+  var root = document.getElementById('root');
+
+  if(!BANK || !DATA){
+    root.innerHTML = '<div class="empty"><p style="color:#fca5a5;font-size:16px">Could not load data.</p>'+
+      '<p>Make sure questions.js and solutions.js are in this folder.</p></div>';
+    return;
+  }
+  var QMAP = BANK.questions || {};
+  var TIERS = {}; (BANK.tiers||[]).forEach(function(t){ TIERS[t.id]=t; });
+
+  var SKEY='dsa-revision-v1';
+  var status = {};
+  try{ status = JSON.parse(localStorage.getItem(SKEY)) || {}; }catch(e){ status={}; }
+  function save(){ try{ localStorage.setItem(SKEY, JSON.stringify(status)); }catch(e){} }
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  var KW = ('def|class|return|if|elif|else|for|while|in|not|and|or|is|None|True|False|import|from|'+
+            'lambda|with|as|pass|break|continue|yield|global|nonlocal|raise|try|except|finally').split('|');
+  var KWRE = new RegExp('\\b('+KW.join('|')+')\\b','g');
+  function escCode(s){ return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&apos;'); }
+  function highlight(code){
+    var out = escCode(code);
+    // keywords FIRST — before any class="..." attribute exists, so the word
+    // "class" in our span markup can never be re-matched as a Python keyword.
+    out = out.replace(KWRE, '<span class="tk">$1</span>');
+    out = out.replace(/(<span class="tk">def<\/span>|<span class="tk">class<\/span>)(\s+)([A-Za-z_]\w*)/g,
+      '$1$2<span class="tf">$3</span>');
+    out = out.replace(/(&quot;[^&\n]*?&quot;|&apos;[^&\n]*?&apos;)/g, function(m){ return '<span class="ts">'+m+'</span>'; });
+    out = out.replace(/(#[^\n]*)/g, '<span class="tc">$1</span>');
+    out = out.replace(/\b(\d+)\b/g, '<span class="tn">$1</span>');
+    return out;
+  }
+
+  var STATUS_OPTS = [['none','To revise'],['revisit','Revisit'],['done','Done']];
+
+  var byTier = {1:[],2:[],3:[],4:[]};
+  DATA.forEach(function(p){ (byTier[p.tier]||(byTier[p.tier]=[])).push(p); });
+
+  function searchText(p){
+    var t = (p.title+' '+(p.intro||'')+' '+p.section+' ');
+    p.questions.forEach(function(q){ var m=QMAP[q.id]; t += (m?m.name:'')+' '+(q.approach||'')+' '; });
+    return t.toLowerCase();
+  }
+
+  var html = '';
+  [1,2,3,4].forEach(function(tier){
+    var pats = byTier[tier]; if(!pats||!pats.length) return;
+    var ti = TIERS[tier] || {title:'Tier '+tier, note:''};
+    var qcount = pats.reduce(function(a,p){return a+p.questions.length;},0);
+    html += '<div class="tier-group" data-tier="'+tier+'">';
+    html += '<div class="tier-h"><span class="tdot"></span><h2>'+esc(ti.title)+'</h2>'+
+            (ti.note?'<span class="note">'+esc(ti.note)+'</span>':'')+
+            '<span class="note">&middot; '+pats.length+' patterns &middot; '+qcount+' problems</span></div>';
+    pats.forEach(function(p){
+      html += '<section class="pat" data-tier="'+tier+'" data-search="'+esc(searchText(p))+'">';
+      html += '<div class="pat-head"><span class="dot" style="background:'+esc(p.color||'#5aa3ff')+';color:'+esc(p.color||'#5aa3ff')+'"></span>'+
+        '<div class="pat-titles"><h3>'+esc(p.title)+'</h3><p class="intro">'+esc(p.intro||'')+'</p></div>'+
+        '<span class="pat-prog" data-pat="'+esc(p.id)+'">0/'+p.questions.length+'</span>'+
+        '<span class="chev">&#9662;</span></div>';
+      html += '<div class="pat-body">';
+      p.questions.forEach(function(q){
+        var m = QMAP[q.id] || {name:q.id,url:'#',source:'',hard:false};
+        var st = status[q.id] || 'none';
+        var badges = '';
+        if(m.hard) badges += '<span class="badge b-hard">hard</span>';
+        badges += m.source==='gfg' ? '<span class="badge b-gfg">GFG</span>' : '<span class="badge b-lc">LC</span>';
+        html += '<article class="q" data-status="'+st+'" data-qid="'+esc(q.id)+'">';
+        html += '<div class="q-top"><a class="q-name" href="'+esc(m.url)+'" target="_blank" rel="noopener">'+esc(m.name)+'</a>'+
+          badges+
+          '<select class="q-status" data-v="'+st+'" data-qid="'+esc(q.id)+'">'+
+          STATUS_OPTS.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===st?' selected':'')+'>'+o[1]+'</option>';}).join('')+
+          '</select></div>';
+        html += '<div class="q-meta"><span class="approach">'+esc(q.approach||'')+'</span>'+
+          (q.complexity?'<span class="sep">&middot;</span><span class="cx">'+esc(q.complexity)+'</span>':'')+'</div>';
+        html += '<button class="sol-toggle"><span class="pl">+</span> Python solution</button>';
+        html += '<div class="sol"><div class="sol-bar"><span class="sol-lang"><span class="py"></span>Python</span>'+
+          '<button class="copy"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Copy</button></div>'+
+          '<pre><code>'+highlight(q.code||'')+'</code></pre></div>';
+        html += '</article>';
+      });
+      html += '</div></section>';
+    });
+    html += '</div>';
+  });
+  root.innerHTML = html;
+
+  var CODE = {};
+  DATA.forEach(function(p){ p.questions.forEach(function(q){ CODE[q.id]=q.code||''; }); });
+
+  function refreshProgress(){
+    var total=0, done=0;
+    document.querySelectorAll('.pat').forEach(function(pat){
+      var qs = pat.querySelectorAll('.q'), d=0;
+      qs.forEach(function(q){ if(q.getAttribute('data-status')==='done') d++; });
+      total += qs.length; done += d;
+      var tag = pat.querySelector('.pat-prog');
+      tag.textContent = d+'/'+qs.length;
+      tag.classList.toggle('done', d===qs.length && qs.length>0);
+    });
+    document.getElementById('ov-done').textContent = done;
+    document.getElementById('ov-total').textContent = total;
+    var pct = total? Math.round(done/total*100):0;
+    document.getElementById('ov-pct').textContent = pct+'%';
+    document.getElementById('ov-bar').style.width = pct+'%';
+  }
+  refreshProgress();
+
+  function cssEsc(s){ return String(s).replace(/["\\]/g,'\\$&'); }
+
+  root.addEventListener('click', function(e){
+    var head = e.target.closest('.pat-head');
+    if(head && !e.target.closest('a')){ head.parentElement.classList.toggle('open'); return; }
+
+    var st = e.target.closest('.sol-toggle');
+    if(st){ st.classList.toggle('open'); st.nextElementSibling.classList.toggle('open'); return; }
+
+    var cp = e.target.closest('.copy');
+    if(cp){
+      var qid = cp.closest('.q').getAttribute('data-qid');
+      var txt = CODE[qid]||'';
+      var done=function(){ cp.classList.add('ok'); var o=cp.innerHTML; cp.innerHTML=o.replace('Copy','Copied'); setTimeout(function(){cp.classList.remove('ok');cp.innerHTML=o;},1400); };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done,function(){fallbackCopy(txt);done();}); }
+      else { fallbackCopy(txt); done(); }
+      return;
+    }
+  });
+  function fallbackCopy(txt){ var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} ta.remove(); }
+
+  root.addEventListener('change', function(e){
+    var sel = e.target.closest('.q-status'); if(!sel) return;
+    var qid = sel.getAttribute('data-qid'), v = sel.value;
+    if(v==='none') delete status[qid]; else status[qid]=v;
+    save();
+    sel.setAttribute('data-v', v);
+    document.querySelectorAll('.q[data-qid="'+cssEsc(qid)+'"]').forEach(function(q){ q.setAttribute('data-status', v); });
+    document.querySelectorAll('.q-status[data-qid="'+cssEsc(qid)+'"]').forEach(function(s){ if(s!==sel){ s.value=v; s.setAttribute('data-v',v); }});
+    refreshProgress();
+  });
+
+  document.getElementById('expand-all').addEventListener('click', function(){
+    document.querySelectorAll('.pat').forEach(function(p){ if(p.style.display!=='none') p.classList.add('open'); }); });
+  document.getElementById('collapse-all').addEventListener('click', function(){
+    document.querySelectorAll('.pat').forEach(function(p){ p.classList.remove('open'); }); });
+
+  var activeTier='all';
+  document.getElementById('tier-chips').addEventListener('click', function(e){
+    var c=e.target.closest('.chip'); if(!c) return;
+    activeTier=c.getAttribute('data-tier');
+    this.querySelectorAll('.chip').forEach(function(x){x.classList.toggle('on',x===c);});
+    applyFilter();
+  });
+
+  var searchEl=document.getElementById('search');
+  searchEl.addEventListener('input', applyFilter);
+  document.addEventListener('keydown', function(e){
+    if(e.key==='/' && document.activeElement!==searchEl){ e.preventDefault(); searchEl.focus(); }
+    if(e.key==='Escape' && document.activeElement===searchEl){ searchEl.value=''; applyFilter(); searchEl.blur(); }
+  });
+
+  function applyFilter(){
+    var q=(searchEl.value||'').trim().toLowerCase();
+    var anyVisible=false;
+    document.querySelectorAll('.tier-group').forEach(function(g){
+      var gt=g.getAttribute('data-tier');
+      var tierOk = (activeTier==='all'||activeTier===gt);
+      var groupVisible=false;
+      g.querySelectorAll('.pat').forEach(function(p){
+        var match = tierOk && (!q || p.getAttribute('data-search').indexOf(q)>=0);
+        p.style.display = match ? '' : 'none';
+        if(match){ groupVisible=true; anyVisible=true; if(q) p.classList.add('open'); }
+      });
+      g.style.display = groupVisible ? '' : 'none';
+    });
+    document.getElementById('empty').hidden = anyVisible;
+  }
+})();
+</script>
+</body>
+</html>
