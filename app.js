@@ -498,6 +498,114 @@ return w`
   }
 ];
 
+const HEAP_TEMPLATES = [
+  {
+    id: 'heap-t1', label: 'Heap A — Top K (Keep Only Best K)', color: '#f97316',
+    tag: 'Kth Largest · Top K Frequent · K Closest',
+    code: `import heapq
+heap = []
+for x in nums:
+    heapq.heappush(heap, x)
+    if len(heap) > k:
+        heapq.heappop(heap)
+return heap[0]`
+  },
+  {
+    id: 'heap-t2', label: 'Heap B — K-way Merge', color: '#ec4899',
+    tag: 'Merge K Sorted Lists · Kth Smallest Matrix',
+    code: `import heapq
+heap = []
+for row in range(len(matrix)):
+    heapq.heappush(heap, (matrix[row][0], row, 0))
+while heap:
+    val, row, col = heapq.heappop(heap)
+    # process answer
+    if col + 1 < len(matrix[row]):
+        heapq.heappush(heap, (matrix[row][col + 1], row, col + 1))`
+  },
+  {
+    id: 'heap-t3', label: 'Heap C — Expand Next Candidate', color: '#3b82f6',
+    tag: 'K Pairs with Smallest Sums',
+    code: `import heapq
+heap = []
+for i in range(min(k, len(nums1))):
+    heapq.heappush(heap, (nums1[i] + nums2[0], i, 0))
+ans = []
+while heap and len(ans) < k:
+    _, i, j = heapq.heappop(heap)
+    ans.append([nums1[i], nums2[j]])
+    if j + 1 < len(nums2):
+        heapq.heappush(heap, (nums1[i] + nums2[j + 1], i, j + 1))
+return ans`
+  },
+  {
+    id: 'heap-t4', label: 'Heap D — Frequency Priority', color: '#8b5cf6',
+    tag: 'Reorganize String',
+    code: `from collections import Counter
+import heapq
+freq = Counter(s)
+heap = []
+for ch, f in freq.items():
+    heapq.heappush(heap, (-f, ch))
+prev = (0, "")
+ans = []
+while heap:
+    f, ch = heapq.heappop(heap)
+    ans.append(ch)
+    if prev[0] < 0:
+        heapq.heappush(heap, prev)
+    prev = (f + 1, ch)
+return "".join(ans)`
+  },
+  {
+    id: 'heap-t5', label: 'Heap E — Merge Two Smallest', color: '#10b981',
+    tag: 'Connect Sticks · Huffman',
+    code: `import heapq
+heapq.heapify(arr)
+cost = 0
+while len(arr) > 1:
+    x = heapq.heappop(arr)
+    y = heapq.heappop(arr)
+    cost += x + y
+    heapq.heappush(arr, x + y)
+return cost`
+  },
+  {
+    id: 'heap-t6', label: 'Heap F — Unlock Then Pick Best', color: '#6366f1',
+    tag: 'IPO',
+    code: `import heapq
+projects = sorted(zip(capital, profits))
+heap = []
+i = 0
+for _ in range(k):
+    while i < len(projects) and projects[i][0] <= w:
+        heapq.heappush(heap, -projects[i][1])
+        i += 1
+    if not heap:
+        break
+    w += -heapq.heappop(heap)
+return w`
+  },
+  {
+    id: 'heap-t7', label: 'Heap G — Running Median', color: '#f59e0b',
+    tag: 'Median Finder',
+    code: `import heapq
+small = []      # max heap
+large = []      # min heap
+
+def add(num):
+    heapq.heappush(small, -num)
+    heapq.heappush(large, -heapq.heappop(small))
+    if len(large) > len(small):
+        heapq.heappush(small, -heapq.heappop(large))
+
+def median():
+    if len(small) > len(large):
+        return -small[0]
+    return (-small[0] + large[0]) / 2`
+  }
+];
+
 function buildGreedyTemplates() {
   let html = `<div class="grd-tmpl-wrap">
     <button class="grd-tmpl-toggle" id="grd-tmpl-toggle" aria-expanded="false">
@@ -534,12 +642,51 @@ function buildGreedyTemplates() {
   return html;
 }
 
+function buildHeapTemplates() {
+  let html = `<div class="grd-tmpl-wrap">
+    <button class="grd-tmpl-toggle" id="heap-tmpl-toggle" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" width="15" height="15" aria-hidden="true">
+        <path d="M12 4 4 19h16L12 4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7.6 13.5h8.8" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      <span>Heap Pattern Templates</span>
+      <span class="grd-tmpl-count">${HEAP_TEMPLATES.length} patterns</span>
+      <svg class="grd-tmpl-chev" viewBox="0 0 24 24" fill="none" width="15" height="15" aria-hidden="true">
+        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="grd-tmpl-body" id="heap-tmpl-body">
+      <div class="grd-tmpl-grid">`;
+
+  HEAP_TEMPLATES.forEach(t => {
+    const codeEsc = esc(t.code);
+    html += `<div class="grd-tmpl-card" style="--tc:${t.color}">
+      <div class="grd-tmpl-card-head">
+        <span class="grd-tmpl-dot" style="background:${t.color};box-shadow:0 0 8px ${t.color}66"></span>
+        <div class="grd-tmpl-meta">
+          <div class="grd-tmpl-title">${esc(t.label)}</div>
+          <div class="grd-tmpl-tag">${esc(t.tag)}</div>
+        </div>
+        <button class="grd-tmpl-copy" data-code="${codeEsc}" title="Copy code">
+          <svg viewBox="0 0 24 24" fill="none" width="13" height="13"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <pre class="grd-tmpl-code"><code>${codeEsc}</code></pre>
+    </div>`;
+  });
+
+  html += `</div></div></div>`;
+  return html;
+}
+
 function buildDetail(sec) {
   let html = '';
 
-  // Inject Greedy pattern templates at the top of the Greedy section
+  // Inject pattern templates at the top of the relevant sections
   if (sec.id === 'greedy') {
     html += buildGreedyTemplates();
+  }
+  if (sec.id === 'heap') {
+    html += buildHeapTemplates();
   }
 
   const multi = sec.cards.length > 1;
@@ -1041,17 +1188,74 @@ const EXAM_TEMPLATES = { 3: ['easy', 'medium', 'hard'], 4: ['easy', 'medium', 'm
 const DIFF_TIME = { easy: 20, medium: 35, hard: 45 };
 let examTimer = null, examState = null;
 
-function generateExam(size) {
+function normalizeExamTopicFilter(raw) {
+  const text = String(raw == null ? '' : raw).trim();
+  if (!text || text === 'all') return null;
+  const tiers = new Set();
+  const topics = new Set();
+  const tokens = text.split(/[\n;,]+/).map(s => s.trim()).filter(Boolean);
+  const aliasMap = {
+    hash: 'hash-map',
+    'hash-map': 'hash-map',
+    hashmap: 'hash-map',
+    'hash map': 'hash-map',
+    dp: 'dp-basic',
+    'dynamic programming': 'dp-basic',
+    'dynamic-programming': 'dp-basic',
+    'linked-list': 'linked-list',
+    linkedlist: 'linked-list',
+    'linked list': 'linked-list',
+    'bit manipulation': 'bit',
+    'bit-manipulation': 'bit'
+  };
+  tokens.forEach(token => {
+    const normalized = token.toLowerCase().trim();
+    const tierValue = normalized.startsWith('tier:') ? normalized.slice(5).trim() : normalized;
+    const rangeMatch = tierValue.match(/^(?:tier|t)?\s*(\d+)\s*(?:\.{2,}|-|to)\s*(\d+)$/);
+    if (rangeMatch) {
+      const start = +rangeMatch[1], end = +rangeMatch[2];
+      if (start <= end) {
+        for (let i = start; i <= end; i++) {
+          if (i >= 1 && i <= 4) tiers.add(i);
+        }
+      }
+      return;
+    }
+    const singleTierMatch = tierValue.match(/^(?:tier|t)?\s*(\d+)$/);
+    if (singleTierMatch) {
+      const n = +singleTierMatch[1];
+      if (n >= 1 && n <= 4) tiers.add(n);
+      return;
+    }
+    const topicId = aliasMap[normalized] || (QBANK.prioritySections.find(s => {
+      const id = (s.id || '').toLowerCase();
+      const label = (s.label || '').toLowerCase();
+      return id === normalized || label === normalized || label.replace(/\s+/g, '-') === normalized || id === token;
+    }) || {}).id;
+    if (topicId) topics.add(topicId);
+  });
+  return { tiers: Array.from(tiers).sort(), topics: Array.from(topics) };
+}
+
+function generateExam(size, topicFilter) {
   const comp = EXAM_TEMPLATES[size] || EXAM_TEMPLATES[4];
-  const pool = masterList().filter(x => x.topic).map(x => Object.assign({}, x, { diff: qDifficulty(x), topicLabel: topicLabelOf(x.topic) }));
+  const filter = normalizeExamTopicFilter(topicFilter);
+  const basePool = masterList().filter(x => x.topic).map(x => Object.assign({}, x, { diff: qDifficulty(x), topicLabel: topicLabelOf(x.topic) }));
+  const pool = basePool.filter(x => {
+    if (!filter) return true;
+    const tierMatch = !filter.tiers.length || filter.tiers.includes(topicTier(x.topic));
+    const topicMatch = !filter.topics.length || filter.topics.includes(x.topic);
+    return tierMatch && topicMatch;
+  });
+  const activePool = pool.length ? pool : basePool;
   const byDiff = { easy: [], medium: [], hard: [] };
-  pool.forEach(x => byDiff[x.diff].push(x));
+  activePool.forEach(x => byDiff[x.diff].push(x));
   const usedTopics = new Set(), usedIds = new Set(), result = [];
   comp.forEach(level => {
     let cand = byDiff[level].filter(x => !usedTopics.has(x.topic) && !usedIds.has(x.id));      // ideal: right difficulty, new topic
     if (!cand.length) cand = byDiff[level].filter(x => !usedIds.has(x.id));                      // relax topic uniqueness
-    if (!cand.length) cand = pool.filter(x => !usedTopics.has(x.topic) && !usedIds.has(x.id));   // relax difficulty, keep topic variety
-    if (!cand.length) cand = pool.filter(x => !usedIds.has(x.id));                               // last resort
+    if (!cand.length) cand = activePool.filter(x => !usedTopics.has(x.topic) && !usedIds.has(x.id));   // relax difficulty, keep topic variety
+    if (!cand.length) cand = activePool.filter(x => !usedIds.has(x.id));                               // last resort
     if (!cand.length) return;
     const pick = cand[Math.floor(Math.random() * cand.length)];
     usedTopics.add(pick.topic); usedIds.add(pick.id); result.push(pick);
@@ -1063,7 +1267,8 @@ function generateExam(size) {
 
 function openExamModal() {
   const size = (state.ui && state.ui.examSize) || 4;
-  examState = { size, questions: generateExam(size), remaining: null };
+  const topicInput = (state.ui && state.ui.examTopics) || '';
+  examState = { size, topicInput, questions: generateExam(size, topicInput), remaining: null };
   openModal('Mock Exam', examModalHTML(), wireExamModal);
 }
 function examModalHTML() {
@@ -1073,6 +1278,25 @@ function examModalHTML() {
   const sizes = [3, 4, 5].map(n => `<button class="seg ${examState.size === n ? 'is-active' : ''}" data-size="${n}">${n} Q</button>`).join('');
   const summary = ['easy', 'medium', 'hard'].filter(d => counts[d]).map(d => `${counts[d]} ${DIFF_META[d].label}`).join(' · ');
   const list = qs.map((q, i) => examQuestionHTML(q, i)).join('');
+  const currentValue = examState.topicInput || '';
+  const selected = new Set(currentValue.split(',').map(s => s.trim()).filter(Boolean));
+  const topicOptions = ['all', ...[1,2,3,4].map(t => `tier:${t}`), ...(QBANK.prioritySections || []).map(s => s.id)];
+  const currentLabel = (() => {
+    if (!currentValue || currentValue === 'all') return 'All topics';
+    const count = selected.size;
+    if (count === 1) {
+      const val = Array.from(selected)[0];
+      if (val.startsWith('tier:')) return `Tier ${val.split(':')[1]}`;
+      const sec = QBANK.prioritySections.find(s => s.id === val);
+      return (sec && sec.label) || val;
+    }
+    return `${count} selected`;
+  })();
+  const dropdownOptions = topicOptions.map(v => {
+    const isSelected = selected.has(v);
+    const label = v === 'all' ? 'All topics' : v.startsWith('tier:') ? `Tier ${v.split(':')[1]}` : (QBANK.prioritySections.find(s => s.id === v) || {}).label || v;
+    return `<div class="exam-dd-item" data-value="${esc(v)}" ${isSelected ? 'data-selected="true"' : ''}><input type="checkbox" ${isSelected ? 'checked' : ''} style="margin-right:8px;pointer-events:none">${esc(label)}</div>`;
+  }).join('');
   return `
     <div class="exam-toolbar">
       <div class="seg-group" id="exam-sizes">${sizes}</div>
@@ -1080,6 +1304,13 @@ function examModalHTML() {
       <div class="exam-actions">
         <button class="ghost-btn" id="exam-start">▶ Start</button>
         <button class="ghost-btn" id="exam-regen">⟳ Regenerate</button>
+      </div>
+    </div>
+    <div class="exam-topic-filter">
+      <label class="exam-topic-label">Topics</label>
+      <div class="exam-dd-wrapper">
+        <button class="exam-dd-trigger" id="exam-topics">${esc(currentLabel)}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="exam-dd-menu" id="exam-dd-menu">${dropdownOptions}</div>
       </div>
     </div>
     <div class="exam-meta"><strong>${qs.length} questions</strong> · ${summary} · suggested ~${mins} min<br><span class="exam-note">Balanced across ${new Set(qs.map(q => q.topic)).size} topics — picked only from your list.</span></div>
@@ -1102,11 +1333,59 @@ function examQuestionHTML(q, i) {
   </div>`;
 }
 function wireExamModal(body) {
-  $('#exam-regen', body).addEventListener('click', () => { examState.questions = generateExam(examState.size); examState.remaining = null; stopExamTimer(); refreshExamBody(); });
+  const trigger = $('#exam-topics', body);
+  const menu = $('#exam-dd-menu', body);
+  let menuOpen = false;
+  if (trigger && menu) {
+    const toggleMenu = () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        menu.classList.add('is-open');
+        trigger.classList.add('is-active');
+      } else {
+        menu.classList.remove('is-open');
+        trigger.classList.remove('is-active');
+      }
+    };
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+    $$('.exam-dd-item', menu).forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const value = item.dataset.value;
+        const selected = new Set(examState.topicInput.split(',').map(s => s.trim()).filter(Boolean));
+        if (value === 'all') {
+          examState.topicInput = '';
+        } else {
+          if (selected.has(value)) {
+            selected.delete(value);
+          } else {
+            selected.delete('all');
+            selected.add(value);
+          }
+          examState.topicInput = Array.from(selected).join(',');
+        }
+        state.ui = state.ui || {}; state.ui.examTopics = examState.topicInput; saveState();
+        examState.questions = generateExam(examState.size, examState.topicInput);
+        examState.remaining = null; stopExamTimer(); refreshExamBody();
+      });
+    });
+    document.addEventListener('click', () => {
+      menuOpen = false;
+      menu.classList.remove('is-open');
+      trigger.classList.remove('is-active');
+    }, true);
+  }
+  $('#exam-regen', body).addEventListener('click', () => {
+    examState.questions = generateExam(examState.size, examState.topicInput);
+    examState.remaining = null; stopExamTimer(); refreshExamBody();
+  });
   $('#exam-sizes', body).addEventListener('click', e => {
     const b = e.target.closest('[data-size]'); if (!b) return;
     examState.size = +b.dataset.size; state.ui = state.ui || {}; state.ui.examSize = examState.size; saveState();
-    examState.questions = generateExam(examState.size); examState.remaining = null; stopExamTimer(); refreshExamBody();
+    examState.questions = generateExam(examState.size, examState.topicInput); examState.remaining = null; stopExamTimer(); refreshExamBody();
   });
   $('#exam-start', body).addEventListener('click', toggleExamTimer);
 }

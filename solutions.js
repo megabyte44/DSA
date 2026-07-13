@@ -809,8 +809,8 @@ class Solution:
   },
 
   {
-    id: 'bt', title: 'Recursion & Backtracking', color: '#8b5cf6', tier: 2, section: 'Recursion & Backtracking',
-    intro: 'Choose → recurse → undo. A start index avoids reusing earlier elements (combinations); a used[] array tracks consumed elements (permutations).',
+    id: 'bt-subsets', title: '① Subsets', color: '#8b5cf6', tier: 2, section: 'Backtracking · Combinatorics',
+    intro: 'Choose → recurse → undo. A start index avoids reusing earlier elements.',
     questions: [
       {
         id: 'lc:subsets',
@@ -829,7 +829,14 @@ class Solution:
 
         backtrack(0, [])
         return res`
-      },
+      }
+    ]
+  },
+
+  {
+    id: 'bt-perm', title: '② Permutations', color: '#a855f7', tier: 2, section: 'Backtracking · Permutations',
+    intro: 'A used[] array tracks consumed elements to build permutations.',
+    questions: [
       {
         id: 'lc:permutations',
         approach: 'Pick any unused element at each level until the path is full.',
@@ -854,7 +861,14 @@ class Solution:
 
         backtrack([])
         return res`
-      },
+      }
+    ]
+  },
+
+  {
+    id: 'bt-comb', title: '③ Combination Sum', color: '#6366f1', tier: 2, section: 'Backtracking · Combinatorics',
+    intro: 'Reuse the same index to allow repeats; prune when candidate > remaining.',
+    questions: [
       {
         id: 'lc:combination-sum',
         approach: 'Sort; reuse the same index to allow repeats; prune when candidate > remaining.',
@@ -877,7 +891,14 @@ class Solution:
 
         backtrack(0, target, [])
         return res`
-      },
+      }
+    ]
+  },
+
+  {
+    id: 'bt-board', title: '④ Grid & State', color: '#ec4899', tier: 2, section: 'Backtracking · Board State',
+    intro: 'Place elements on a grid while checking tight constraints sets (rows, cols, diags).',
+    questions: [
       {
         id: 'lc:n-queens',
         approach: 'Place one queen per row; sets track used columns and both diagonals (r-c, r+c).',
@@ -908,7 +929,7 @@ class Solution:
   },
 
   {
-    id: 'dp-linear', title: 'Fibonacci / Linear DP', color: '#60a5fa', tier: 2, section: 'DP — Core Patterns',
+    id: 'dp-linear', title: '① Fibonacci / Linear DP', color: '#60a5fa', tier: 2, section: 'DP Core · Linear DP',
     intro: 'State depends on a few previous indices. Roll the array down to O(1) space once the recurrence is clear.',
     questions: [
       {
@@ -972,7 +993,7 @@ class Solution:
   },
 
   {
-    id: 'dp-01knap', title: '0/1 Knapsack', color: '#f59e0b', tier: 2, section: 'DP — Core Patterns',
+    id: 'dp-01knap', title: '② 0/1 Knapsack', color: '#f59e0b', tier: 2, section: 'DP Core · 0/1 Knapsack',
     intro: 'Each item used at most once → iterate the capacity dimension backwards to avoid reusing an item.',
     questions: [
       {
@@ -1013,7 +1034,7 @@ class Solution:
   },
 
   {
-    id: 'dp-unbounded', title: 'Unbounded Knapsack', color: '#34d399', tier: 2, section: 'DP — Core Patterns',
+    id: 'dp-unbounded', title: '③ Unbounded Knapsack', color: '#34d399', tier: 2, section: 'DP Core · Unbounded Knapsack',
     intro: 'Items reusable → iterate capacity forwards. Order of the two loops decides combinations (ways) vs permutations.',
     questions: [
       {
@@ -1503,8 +1524,8 @@ class Solution:
   },
 
   {
-    id: 'grph', title: 'Graphs', color: '#8b4513', tier: 3, section: 'Graphs - BFS/DFS + Topo sort + DSU',
-    intro: 'Grid flood-fill = DFS/BFS; ordering with prerequisites = topological sort; shortest unweighted = BFS; weighted non-negative = Dijkstra.',
+    id: 'grph-dfs', title: '① DFS / Flood Fill', color: '#8b4513', tier: 3, section: 'Graphs · Traversals',
+    intro: 'Grid flood-fill = DFS/BFS from unvisited nodes.',
     questions: [
       {
         id: 'lc:number-of-islands',
@@ -1530,7 +1551,14 @@ class Solution:
                     count += 1
                     dfs(r, c)
         return count`
-      },
+      }
+    ]
+  },
+
+  {
+    id: 'grph-topo', title: '② Topological Sort', color: '#a0522d', tier: 3, section: 'Graphs · DAGs',
+    intro: "Kahn's topological sort: repeatedly remove zero-indegree nodes.",
+    questions: [
       {
         id: 'lc:course-schedule',
         approach: "Kahn's topological sort: repeatedly remove zero-indegree nodes; cycle iff not all removed.",
@@ -1553,7 +1581,14 @@ class Solution:
                 if indeg[nxt] == 0:
                     q.append(nxt)
         return seen == numCourses`
-      },
+      }
+    ]
+  },
+
+  {
+    id: 'grph-bfs', title: '③ Multi-source BFS', color: '#cd853f', tier: 3, section: 'Graphs · Traversals',
+    intro: 'Start BFS from all sources at once to find the minimum distance/time.',
+    questions: [
       {
         id: 'lc:rotting-oranges',
         approach: 'Multi-source BFS from all rotten oranges at once; count the levels.',
@@ -1582,7 +1617,14 @@ class Solution:
                         fresh -= 1
                         q.append((nr, nc))
         return -1 if fresh else minutes`
-      },
+      }
+    ]
+  },
+
+  {
+    id: 'grph-dijk', title: '④ Shortest Path', color: '#d2691e', tier: 3, section: 'Graphs · Shortest Path',
+    intro: 'Dijkstra from source with a min-heap.',
+    questions: [
       {
         id: 'lc:network-delay-time',
         approach: "Dijkstra from k with a min-heap; answer is the largest finalised distance.",
@@ -2078,7 +2120,7 @@ class Solution:
   },
 
   {
-    id: 'xor', title: 'XOR pattern', color: '#378ADD', tier: 4, section: 'Bit Manipulation',
+    id: 'xor', title: '① XOR Pattern', color: '#378ADD', tier: 4, section: 'Bitwise · XOR',
     intro: 'x^x=0 and x^0=x. XOR cancels pairs — perfect for finding the odd one out or a missing value.',
     questions: [
       {
@@ -2123,7 +2165,7 @@ class Solution:
   },
 
   {
-    id: 'mask', title: 'Bit masking', color: '#1D9E75', tier: 4, section: 'Bit Manipulation',
+    id: 'mask', title: '② Bit Masking', color: '#1D9E75', tier: 4, section: 'Bitwise · Masking',
     intro: 'n & (n-1) clears the lowest set bit; shifts read/write individual bits. Build numbers bit by bit.',
     questions: [
       {
@@ -2178,7 +2220,7 @@ class Solution:
   },
 
   {
-    id: 'subset', title: 'Subset via bits', color: '#7F77DD', tier: 4, section: 'Bit Manipulation',
+    id: 'subset', title: '③ Subset via Bits', color: '#7F77DD', tier: 4, section: 'Bitwise · Subsets',
     intro: 'Enumerate all 2ⁿ subsets as integers 0..2ⁿ-1; bit i = element i chosen. Letter sets compress to a 26-bit mask.',
     questions: [
       {
@@ -2216,7 +2258,7 @@ class Solution:
   },
 
   {
-    id: 'checks', title: 'Bit checks', color: '#BA7517', tier: 4, section: 'Bit Manipulation',
+    id: 'checks', title: '④ Bit Checks', color: '#BA7517', tier: 4, section: 'Bitwise · Checks',
     intro: 'Per-bit reasoning: XOR finds differing bits; count set bits column by column across an array.',
     questions: [
       {
@@ -2249,7 +2291,7 @@ class Solution:
   },
 
   {
-    id: 'pxor', title: 'Prefix XOR', color: '#D85A30', tier: 4, section: 'Bit Manipulation',
+    id: 'pxor', title: '⑤ Prefix XOR', color: '#D85A30', tier: 4, section: 'Bitwise · Prefix',
     intro: 'XOR of a range = prefix[r] ^ prefix[l-1]. Pair with a hashmap to count subarrays with a target XOR.',
     questions: [
       {
