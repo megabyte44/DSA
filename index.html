@@ -47,12 +47,20 @@
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5.5A2.5 2.5 0 0 1 7.5 3H19a1 1 0 0 1 1 1v13.5a1 1 0 0 1-1 1H7.5A2.5 2.5 0 0 0 5 21V5.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M5 5.5A2.5 2.5 0 0 0 7.5 8H20" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
           <span>Revision Sheet</span>
         </a>
+        <a class="revision-cta" href="interview_Q.html" title="Open the interview handbook">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v5h5M9 11h6M9 15h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Interview Handbook</span>
+        </a>
       </div>
 
       <div class="tool-row">
         <button class="tool-btn tool-exam" id="open-exam">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v5h5M9 13l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span>Mock Exam</span>
+        </button>
+        <button class="tool-btn tool-view-history" id="view-history">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>History</span>
         </button>
         <button class="tool-btn tool-find" id="open-finder">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.2-3.2M11 8v6M8 11h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -148,6 +156,52 @@
       </button>
     </div>
     <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ============ MOCK SESSION SCREEN ============ -->
+<div class="mock-session-screen" id="mock-session-screen" hidden>
+  <div class="mock-header">
+    <button class="mock-back-btn" id="mock-back-btn" aria-label="Back to mock generator">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Back</span>
+    </button>
+    <div class="mock-title">Mock Session</div>
+    <div class="mock-timer-display" id="mock-timer-display">00:00</div>
+  </div>
+  
+  <div class="mock-container">
+    <div class="mock-sidebar">
+      <div class="mock-questions-list" id="mock-questions-list"></div>
+    </div>
+    
+    <div class="mock-main">
+      <div class="mock-question-detail" id="mock-question-detail"></div>
+      <div class="mock-session-footer">
+        <button class="mock-control-btn" id="mock-start-btn">▶ Start Timer</button>
+        <button class="mock-control-btn mock-submit-btn" id="mock-submit-btn">✓ Submit & Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MOCK HISTORY SCREEN ============ -->
+<div class="mock-history-screen" id="mock-history-screen" hidden>
+  <div class="mock-history-header">
+    <button class="mock-back-btn" id="mock-history-back-btn" aria-label="Back to main">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Back</span>
+    </button>
+    <h1 class="mock-history-title">Mock History</h1>
+    <button id="mock-history-clear-btn" class="mock-control-btn" style="margin-left: auto; padding: 6px 12px; font-size: 13px; background-color: var(--card-fail); border: none;">Clear History</button>
+  </div>
+  
+  <div class="mock-history-content">
+    <div class="mock-history-list" id="mock-history-list">
+      <div class="empty-state">
+        <p>No mock sessions yet. Create one to get started!</p>
+      </div>
+    </div>
   </div>
 </div>
 

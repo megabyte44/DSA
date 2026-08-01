@@ -144,35 +144,6 @@ const QUESTION_BANK = {
               ]
             },
             {
-              "label": "Allocation / Partition",
-              "questions": [
-                {
-                  "id": "lc:split-array-largest-sum"
-                },
-                {
-                  "id": "gfg:allocate-minimum-number-of-pages0937"
-                },
-                {
-                  "id": "gfg:the-painters-partition-problem1535"
-                },
-                {
-                  "id": "lc:minimize-maximum-of-array",
-                  "add": true
-                }
-              ]
-            },
-            {
-              "label": "Distance / Placement",
-              "questions": [
-                {
-                  "id": "gfg:aggressive-cows"
-                },
-                {
-                  "id": "lc:magnetic-force-between-two-balls"
-                }
-              ]
-            },
-            {
               "label": "Search space (values)",
               "questions": [
                 {
@@ -187,6 +158,45 @@ const QUESTION_BANK = {
                 {
                   "id": "gfg:median-in-a-row-wise-sorted-matrix1527",
                   "add": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "min-max-extremes",
+          "title": "Minimize / Maximize Extremes",
+          "color": "#EC4899",
+          "guide": {
+            "signal": "Binary search on answer: optimize an extreme value by finding the best boundary.",
+            "template": "Check feasibility for each candidate. Minimize max: search lower. Maximize min: search higher."
+          },
+          "sections": [
+            {
+              "label": "Minimize the Maximum",
+              "questions": [
+                {
+                  "id": "lc:split-array-largest-sum"
+                },
+                {
+                  "id": "gfg:allocate-minimum-number-of-pages0937"
+                },
+                {
+                  "id": "gfg:the-painters-partition-problem1535"
+                },
+                {
+                  "id": "lc:minimize-maximum-of-array"
+                }
+              ]
+            },
+            {
+              "label": "Maximize the Minimum",
+              "questions": [
+                {
+                  "id": "gfg:aggressive-cows"
+                },
+                {
+                  "id": "lc:magnetic-force-between-two-balls"
                 }
               ]
             }

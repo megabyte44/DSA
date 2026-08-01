@@ -81,6 +81,7 @@ let QID_TOPIC = {};          // qid -> sectionId
 let ADDED = {};              // qid -> {name,url,hard,source:'added'} for user-added
 let ALL_QIDS = [];           // unique qids globally
 let HIDDEN_SET = new Set();  // qids the user has removed
+let QID_RANK = {};           // qid -> 0..1 position within topic (for intra-topic difficulty)
 let SOLUTION_MAP = {};       // qid -> solution object
 let MOTIVATIONS = [
   'Master one pattern at a time. Consistency beats intensity.',
@@ -141,6 +142,8 @@ function buildIndices() {
       if (!QID_TOPIC[ref.id]) QID_TOPIC[ref.id] = sec.id;
       if (!seenGlobal.has(ref.id)) { seenGlobal.add(ref.id); ALL_QIDS.push(ref.id); }
     })));
+    // Assign a 0..1 rank per question within this topic (used for intra-topic difficulty)
+    list.forEach((id, i) => { QID_RANK[id] = list.length > 1 ? i / (list.length - 1) : 0; });
     TOPIC_QIDS[sec.id] = list;
   });
   // user-added questions
@@ -606,6 +609,742 @@ def median():
   }
 ];
 
+/* ============================================================
+   DP BASIC PATTERN TEMPLATES
+   ============================================================ */
+const DP_BASIC_TEMPLATES = [
+  {
+    id: 'dp-b-t1', label: 'DP A — 0/1 Knapsack (Pick / Don\'t Pick)', color: '#3b82f6',
+    tag: '0/1 Knapsack · Subset Sum · Partition Equal Subset',
+    code: `# dp[i][w] = max value using first i items with capacity w
+dp = [[0]*(W+1) for _ in range(n+1)]
+for i in range(1, n+1):
+    wt, val = weights[i-1], values[i-1]
+    for w in range(W+1):
+        dp[i][w] = dp[i-1][w]          # don't pick
+        if wt <= w:
+            dp[i][w] = max(dp[i][w], dp[i-1][w-wt] + val)  # pick
+return dp[n][W]`
+  },
+  {
+    id: 'dp-b-t2', label: 'DP B — Unbounded Knapsack', color: '#6366f1',
+    tag: 'Coin Change · Rod Cutting · Ribbon Cut',
+    code: `# dp[w] = min coins to make amount w
+dp = [float('inf')] * (amount + 1)
+dp[0] = 0
+for coin in coins:
+    for w in range(coin, amount + 1):
+        dp[w] = min(dp[w], dp[w - coin] + 1)
+return dp[amount] if dp[amount] != float('inf') else -1`
+  },
+  {
+    id: 'dp-b-t3', label: 'DP C — Longest Common Subsequence (Grid)', color: '#8b5cf6',
+    tag: 'LCS · Edit Distance · Shortest Common Supersequence',
+    code: `dp = [[0]*(len(t)+1) for _ in range(len(s)+1)]
+for i in range(1, len(s)+1):
+    for j in range(1, len(t)+1):
+        if s[i-1] == t[j-1]:
+            dp[i][j] = dp[i-1][j-1] + 1
+        else:
+            dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+return dp[len(s)][len(t)]`
+  },
+  {
+    id: 'dp-b-t4', label: 'DP D — Longest Increasing Subsequence (1D)', color: '#a855f7',
+    tag: 'LIS · Russian Doll Envelopes',
+    code: `dp = [1] * n
+for i in range(1, n):
+    for j in range(i):
+        if nums[j] < nums[i]:
+            dp[i] = max(dp[i], dp[j] + 1)
+return max(dp)
+
+# O(n log n) variant:
+# tails = []
+# for x in nums:
+#     pos = bisect_left(tails, x)
+#     if pos == len(tails): tails.append(x)
+#     else: tails[pos] = x
+# return len(tails)`
+  },
+  {
+    id: 'dp-b-t5', label: 'DP E — 1D Linear (Fibonacci / House Robber)', color: '#ec4899',
+    tag: 'House Robber · Climbing Stairs · Min Cost Climbing',
+    code: `# House Robber template  
+dp = [0] * n
+dp[0] = nums[0]
+dp[1] = max(nums[0], nums[1])
+for i in range(2, n):
+    dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+return dp[n-1]`
+  },
+  {
+    id: 'dp-b-t6', label: 'DP F — State Machine (Stock Buy & Sell)', color: '#f43f5e',
+    tag: 'Best Time to Buy/Sell Stock II, III, IV · Cooldown',
+    code: `# With cooldown — generalizes to all stock variants
+hold = -float('inf')   # holding a stock
+sold = 0               # just sold today
+rest = 0               # resting (cooldown)
+for price in prices:
+    prev_sold = sold
+    sold = hold + price
+    hold = max(hold, rest - price)
+    rest = max(rest, prev_sold)
+return max(sold, rest)`
+  }
+];
+
+/* ============================================================
+   DP ADVANCED PATTERN TEMPLATES
+   ============================================================ */
+const DP_ADVANCED_TEMPLATES = [
+  {
+    id: 'dp-a-t1', label: 'DP Adv A — Grid DP', color: '#3b82f6',
+    tag: 'Unique Paths · Minimum Path Sum · Dungeon Game',
+    code: `# Unique Paths / Min Path Sum
+dp = [[1]*n for _ in range(m)]
+for i in range(1, m):
+    for j in range(1, n):
+        # Unique Paths:
+        dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        # Min Path Sum variant:
+        # dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1])
+return dp[m-1][n-1]`
+  },
+  {
+    id: 'dp-a-t2', label: 'DP Adv B — Edit Distance (3-way choice)', color: '#6366f1',
+    tag: 'Edit Distance · Delete Op for Two Strings',
+    code: `dp = [[0]*(len(t)+1) for _ in range(len(s)+1)]
+for i in range(len(s)+1): dp[i][0] = i
+for j in range(len(t)+1): dp[0][j] = j
+for i in range(1, len(s)+1):
+    for j in range(1, len(t)+1):
+        if s[i-1] == t[j-1]:
+            dp[i][j] = dp[i-1][j-1]
+        else:
+            dp[i][j] = 1 + min(
+                dp[i-1][j],    # delete from s
+                dp[i][j-1],    # insert into s
+                dp[i-1][j-1]   # replace
+            )
+return dp[len(s)][len(t)]`
+  },
+  {
+    id: 'dp-a-t3', label: 'DP Adv C — Interval DP (Merging)', color: '#8b5cf6',
+    tag: 'Burst Balloons · Matrix Chain · Strange Printer',
+    code: `# Try all split points k inside [i, j]
+dp = [[0]*n for _ in range(n)]
+for length in range(2, n+1):         # grow window
+    for i in range(n - length + 1):
+        j = i + length - 1
+        dp[i][j] = float('inf')
+        for k in range(i, j):       # split point
+            dp[i][j] = min(dp[i][j],
+                dp[i][k] + dp[k+1][j] + cost(i, k, j))
+return dp[0][n-1]`
+  },
+  {
+    id: 'dp-a-t4', label: 'DP Adv D — Bitmask DP (Subset States)', color: '#a855f7',
+    tag: 'TSP · Assign Work · Minimum XOR Sum',
+    code: `# dp[mask] = best value using cities in 'mask'
+dp = [float('inf')] * (1 << n)
+dp[0] = 0
+for mask in range(1 << n):
+    for city in range(n):
+        if mask & (1 << city): continue   # already visited
+        new_mask = mask | (1 << city)
+        dp[new_mask] = min(dp[new_mask],
+                           dp[mask] + cost[prev_city][city])
+return dp[(1<<n)-1]`
+  },
+  {
+    id: 'dp-a-t5', label: 'DP Adv E — DP on Strings (Palindrome)', color: '#ec4899',
+    tag: 'Longest Palindromic Substring · Palindrome Partitioning',
+    code: `# Expand-around-center for longest palindrome
+best = ''
+def expand(l, r):
+    while l >= 0 and r < n and s[l] == s[r]:
+        l -= 1; r += 1
+    return s[l+1:r]
+for i in range(n):
+    best = max(expand(i,i), expand(i,i+1), best, key=len)
+return best`
+  }
+];
+
+/* ============================================================
+   GRAPHS PATTERN TEMPLATES
+   ============================================================ */
+const GRAPHS_TEMPLATES = [
+  {
+    id: 'grph-t1', label: 'Graph A — BFS (Shortest Path / Level Order)', color: '#3b82f6',
+    tag: 'Shortest Path · Word Ladder · 01 Matrix · Rotten Oranges',
+    code: `from collections import deque
+def bfs(graph, src):
+    dist = {src: 0}
+    q = deque([src])
+    while q:
+        node = q.popleft()
+        for nei in graph[node]:
+            if nei not in dist:
+                dist[nei] = dist[node] + 1
+                q.append(nei)
+    return dist`
+  },
+  {
+    id: 'grph-t2', label: 'Graph B — DFS (Connected Components / Cycle)', color: '#6366f1',
+    tag: 'Number of Islands · Clone Graph · Cycle Detection',
+    code: `def dfs(node, visited, graph):
+    visited.add(node)
+    for nei in graph[node]:
+        if nei not in visited:
+            dfs(nei, visited, graph)
+
+visited = set()
+components = 0
+for node in range(n):
+    if node not in visited:
+        dfs(node, visited, graph)
+        components += 1
+return components`
+  },
+  {
+    id: 'grph-t3', label: 'Graph C — Union-Find (Disjoint Set)', color: '#8b5cf6',
+    tag: 'Number of Provinces · Redundant Connection · Accounts Merge',
+    code: `parent = list(range(n))
+rank = [0] * n
+
+def find(x):
+    if parent[x] != x:
+        parent[x] = find(parent[x])   # path compression
+    return parent[x]
+
+def union(a, b):
+    pa, pb = find(a), find(b)
+    if pa == pb: return False
+    if rank[pa] < rank[pb]: pa, pb = pb, pa
+    parent[pb] = pa                    # union by rank
+    if rank[pa] == rank[pb]: rank[pa] += 1
+    return True`
+  },
+  {
+    id: 'grph-t4', label: 'Graph D — Topological Sort (Kahn\'s BFS)', color: '#a855f7',
+    tag: 'Course Schedule · Alien Dictionary · Build Order',
+    code: `from collections import deque, defaultdict
+indegree = [0] * n
+graph = defaultdict(list)
+# build graph from edge list...
+q = deque(i for i in range(n) if indegree[i] == 0)
+order = []
+while q:
+    node = q.popleft()
+    order.append(node)
+    for nei in graph[node]:
+        indegree[nei] -= 1
+        if indegree[nei] == 0:
+            q.append(nei)
+return order if len(order) == n else []   # [] = cycle`
+  },
+  {
+    id: 'grph-t5', label: 'Graph E — Dijkstra (Weighted Shortest Path)', color: '#ec4899',
+    tag: 'Network Delay · Path with Min Effort · Cheapest Flights',
+    code: `import heapq
+def dijkstra(n, graph, src):
+    dist = [float('inf')] * n
+    dist[src] = 0
+    heap = [(0, src)]     # (cost, node)
+    while heap:
+        cost, u = heapq.heappop(heap)
+        if cost > dist[u]: continue
+        for v, w in graph[u]:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+                heapq.heappush(heap, (dist[v], v))
+    return dist`
+  },
+  {
+    id: 'grph-t6', label: 'Graph F — Grid DFS / Flood Fill', color: '#f43f5e',
+    tag: 'Number of Islands · Pacific Atlantic · Surrounded Regions',
+    code: `DIRS = [(0,1),(0,-1),(1,0),(-1,0)]
+def dfs(r, c):
+    if r < 0 or r >= rows or c < 0 or c >= cols: return
+    if grid[r][c] != '1': return
+    grid[r][c] = '0'          # mark visited
+    for dr, dc in DIRS:
+        dfs(r+dr, c+dc)
+
+count = 0
+for r in range(rows):
+    for c in range(cols):
+        if grid[r][c] == '1':
+            dfs(r, c); count += 1
+return count`
+  }
+];
+
+/* ============================================================
+   RECURSION / BACKTRACKING PATTERN TEMPLATES
+   ============================================================ */
+const RECURSION_TEMPLATES = [
+  {
+    id: 'rec-t1', label: 'Backtrack A — Subsets (Include / Exclude)', color: '#3b82f6',
+    tag: 'Subsets · Subsets II · Power Set',
+    code: `def backtrack(start, current):
+    result.append(current[:])     # snapshot every state
+    for i in range(start, len(nums)):
+        if i > start and nums[i] == nums[i-1]: continue  # skip dups
+        current.append(nums[i])
+        backtrack(i + 1, current)
+        current.pop()
+
+nums.sort(); result = []
+backtrack(0, [])
+return result`
+  },
+  {
+    id: 'rec-t2', label: 'Backtrack B — Combinations / Combination Sum', color: '#6366f1',
+    tag: 'Combination Sum · Combination Sum II · Phone Number Letters',
+    code: `def backtrack(start, current, remaining):
+    if remaining == 0:
+        result.append(current[:])
+        return
+    if remaining < 0: return
+    for i in range(start, len(candidates)):
+        current.append(candidates[i])
+        backtrack(i, current, remaining - candidates[i])  # i (reuse) or i+1 (no reuse)
+        current.pop()
+
+result = []
+backtrack(0, [], target)
+return result`
+  },
+  {
+    id: 'rec-t3', label: 'Backtrack C — Permutations', color: '#8b5cf6',
+    tag: 'Permutations · Permutations II · Next Permutation',
+    code: `def backtrack(current, used):
+    if len(current) == len(nums):
+        result.append(current[:])
+        return
+    for i in range(len(nums)):
+        if used[i]: continue
+        if i > 0 and nums[i] == nums[i-1] and not used[i-1]: continue  # skip dups
+        used[i] = True
+        current.append(nums[i])
+        backtrack(current, used)
+        current.pop()
+        used[i] = False
+
+nums.sort(); result = []; used = [False]*len(nums)
+backtrack([], used)
+return result`
+  },
+  {
+    id: 'rec-t4', label: 'Backtrack D — N-Queens / Sudoku (Constraint Check)', color: '#a855f7',
+    tag: 'N-Queens · Sudoku Solver · Word Search',
+    code: `def backtrack(row):
+    if row == n:
+        result.append([''.join(r) for r in board])
+        return
+    for col in range(n):
+        if col in cols or (row-col) in diag1 or (row+col) in diag2:
+            continue
+        board[row][col] = 'Q'
+        cols.add(col); diag1.add(row-col); diag2.add(row+col)
+        backtrack(row + 1)
+        board[row][col] = '.'
+        cols.discard(col); diag1.discard(row-col); diag2.discard(row+col)
+
+cols = set(); diag1 = set(); diag2 = set()
+board = [['.']*n for _ in range(n)]; result = []
+backtrack(0)
+return result`
+  },
+  {
+    id: 'rec-t5', label: 'Backtrack E — Grid Path (Mark & Unmark)', color: '#ec4899',
+    tag: 'Word Search · Rat in a Maze · Unique Paths III',
+    code: `DIRS = [(0,1),(0,-1),(1,0),(-1,0)]
+def backtrack(r, c, idx):
+    if idx == len(word): return True
+    if r<0 or r>=rows or c<0 or c>=cols: return False
+    if board[r][c] != word[idx]: return False
+    tmp, board[r][c] = board[r][c], '#'   # mark visited
+    found = any(backtrack(r+dr, c+dc, idx+1) for dr,dc in DIRS)
+    board[r][c] = tmp                     # unmark
+    return found
+
+for r in range(rows):
+    for c in range(cols):
+        if backtrack(r, c, 0): return True
+return False`
+  }
+];
+
+/* ============================================================
+   ARRAYS PATTERN TEMPLATES (Sliding Window + Two Pointers)
+   ============================================================ */
+const ARRAYS_TEMPLATES = [
+  {
+    id: 'arr-t1', label: 'Array A — Variable Sliding Window', color: '#3b82f6',
+    tag: 'Longest Substring Without Repeating · Min Window Substring · Fruit Into Baskets',
+    code: `# Expand right; shrink left whenever window is invalid
+left = 0; best = 0
+window = {}  # freq map or set
+for right in range(len(s)):
+    window[s[right]] = window.get(s[right], 0) + 1
+    while len(window) > k:         # invalid condition
+        window[s[left]] -= 1
+        if window[s[left]] == 0: del window[s[left]]
+        left += 1
+    best = max(best, right - left + 1)
+return best`
+  },
+  {
+    id: 'arr-t2', label: 'Array B — Fixed Sliding Window', color: '#6366f1',
+    tag: 'Max Avg Subarray · Contains Duplicate II · Find All Anagrams',
+    code: `window_sum = sum(nums[:k])
+best = window_sum
+for i in range(k, len(nums)):
+    window_sum += nums[i] - nums[i-k]
+    best = max(best, window_sum)
+return best / k`
+  },
+  {
+    id: 'arr-t3', label: 'Array C — Two Pointers (Opposite Ends)', color: '#8b5cf6',
+    tag: 'Two Sum II · 3Sum · Container With Most Water · Trapping Rain Water',
+    code: `nums.sort()
+l, r = 0, len(nums) - 1
+while l < r:
+    s = nums[l] + nums[r]
+    if s == target:
+        return [nums[l], nums[r]]
+    elif s < target:
+        l += 1
+    else:
+        r -= 1
+return []`
+  },
+  {
+    id: 'arr-t4', label: 'Array D — Fast & Slow Pointers', color: '#a855f7',
+    tag: 'Linked List Cycle · Happy Number · Middle of List · Find Duplicate',
+    code: `# Detect cycle (Floyd's algorithm)
+slow = fast = head
+while fast and fast.next:
+    slow = slow.next
+    fast = fast.next.next
+    if slow == fast:               # cycle found
+        slow2 = head
+        while slow != slow2:
+            slow = slow.next
+            slow2 = slow2.next
+        return slow                # cycle start
+return None`
+  },
+  {
+    id: 'arr-t5', label: 'Array E — Prefix Sum', color: '#ec4899',
+    tag: 'Subarray Sum Equals K · Range Sum Query · Continuous Subarray Sum',
+    code: `from collections import defaultdict
+prefix = 0
+count = 0
+seen = defaultdict(int)
+seen[0] = 1                        # empty prefix
+for num in nums:
+    prefix += num
+    count += seen[prefix - k]      # found subarrays
+    seen[prefix] += 1
+return count`
+  },
+  {
+    id: 'arr-t6', label: 'Array F — Binary Search on Answer', color: '#f43f5e',
+    tag: 'Koko Eating Bananas · Min Capacity Ship · Split Array Largest Sum',
+    code: `def canFinish(speed):
+    return sum(-(-p // speed) for p in piles) <= h  # ceil division
+
+lo, hi = 1, max(piles)
+while lo < hi:
+    mid = (lo + hi) // 2
+    if canFinish(mid):
+        hi = mid
+    else:
+        lo = mid + 1
+return lo`
+  }
+];
+
+/* ============================================================
+   STRINGS PATTERN TEMPLATES
+   ============================================================ */
+const STRINGS_TEMPLATES = [
+  {
+    id: 'str-t1', label: 'String A — Sliding Window (Anagram / Substring)', color: '#10b981',
+    tag: 'Find All Anagrams · Min Window Substring · Permutation in String',
+    code: `from collections import Counter
+need = Counter(t)
+window = {}
+have, total = 0, len(need)
+l = best = 0; res = (-1, -1)
+for r, ch in enumerate(s):
+    window[ch] = window.get(ch, 0) + 1
+    if ch in need and window[ch] == need[ch]: have += 1
+    while have == total:
+        if r - l + 1 < best or not best:
+            best = r - l + 1; res = (l, r)
+        window[s[l]] -= 1
+        if s[l] in need and window[s[l]] < need[s[l]]: have -= 1
+        l += 1
+return s[res[0]:res[1]+1]`
+  },
+  {
+    id: 'str-t2', label: 'String B — Two Pointers (Valid Palindrome)', color: '#059669',
+    tag: 'Valid Palindrome · Reverse Vowels · Sort Characters By Frequency',
+    code: `def isPalindrome(s):
+    l, r = 0, len(s) - 1
+    while l < r:
+        while l < r and not s[l].isalnum(): l += 1
+        while l < r and not s[r].isalnum(): r -= 1
+        if s[l].lower() != s[r].lower(): return False
+        l += 1; r -= 1
+    return True`
+  },
+  {
+    id: 'str-t3', label: 'String C — KMP / Pattern Search', color: '#0ea5e9',
+    tag: 'Find the Index of First Occurrence · Repeated Substring Pattern',
+    code: `# Build failure (LPS) table
+def kmp(text, pattern):
+    lps = [0] * len(pattern)
+    j = 0
+    for i in range(1, len(pattern)):
+        while j and pattern[i] != pattern[j]: j = lps[j-1]
+        if pattern[i] == pattern[j]: j += 1
+        lps[i] = j
+    j = 0
+    for i, ch in enumerate(text):
+        while j and ch != pattern[j]: j = lps[j-1]
+        if ch == pattern[j]: j += 1
+        if j == len(pattern): return i - j + 1   # match start
+    return -1`
+  },
+  {
+    id: 'str-t4', label: 'String D — Character Frequency / Grouping', color: '#14b8a6',
+    tag: 'Group Anagrams · Ransom Note · Valid Anagram · Isomorphic Strings',
+    code: `from collections import defaultdict
+groups = defaultdict(list)
+for word in strs:
+    key = tuple(sorted(word))   # canonical form
+    # Alternative key: ''.join(sorted(word))
+    # For counts: key = tuple(Counter(word).items())
+    groups[key].append(word)
+return list(groups.values())`
+  }
+];
+
+/* ============================================================
+   TREES PATTERN TEMPLATES
+   ============================================================ */
+const TREES_TEMPLATES = [
+  {
+    id: 'tree-t1', label: 'Tree A — DFS Traversals (Pre/In/Post)', color: '#10b981',
+    tag: 'Inorder · Preorder · Postorder · Path Sum · Max Depth',
+    code: `# Iterative inorder (generalises to pre/post easily)
+stack, result = [], []
+curr = root
+while curr or stack:
+    while curr:
+        stack.append(curr)
+        curr = curr.left          # go left
+    curr = stack.pop()
+    result.append(curr.val)      # VISIT (move before pop for preorder)
+    curr = curr.right
+return result`
+  },
+  {
+    id: 'tree-t2', label: 'Tree B — BFS / Level Order', color: '#059669',
+    tag: 'Level Order · Zigzag Level · Right Side View · Min Depth',
+    code: `from collections import deque
+result = []
+q = deque([root])
+while q:
+    level = []
+    for _ in range(len(q)):      # snapshot size = current level
+        node = q.popleft()
+        level.append(node.val)
+        if node.left:  q.append(node.left)
+        if node.right: q.append(node.right)
+    result.append(level)
+return result`
+  },
+  {
+    id: 'tree-t3', label: 'Tree C — Recursive Post-order (Return Up)', color: '#0ea5e9',
+    tag: 'Max Path Sum · Diameter · Lowest Common Ancestor · Balanced Tree',
+    code: `# Post-order: solve children first, combine at root
+def dfs(node):
+    if not node: return 0
+    left  = dfs(node.left)
+    right = dfs(node.right)
+    # Use left & right to update global answer:
+    self.ans = max(self.ans, left + right + node.val)
+    return max(left, right) + node.val  # return best path upward
+
+self.ans = float('-inf')
+dfs(root)
+return self.ans`
+  },
+  {
+    id: 'tree-t4', label: 'Tree D — BST Operations', color: '#14b8a6',
+    tag: 'Validate BST · BST Iterator · Kth Smallest · Inorder Successor',
+    code: `# Validate BST with range check
+def isValid(node, lo, hi):
+    if not node: return True
+    if not (lo < node.val < hi): return False
+    return (isValid(node.left,  lo, node.val) and
+            isValid(node.right, node.val, hi))
+return isValid(root, float('-inf'), float('inf'))
+
+# Kth Smallest — inorder gives sorted order
+def kthSmallest(root, k):
+    stack = []; curr = root
+    while curr or stack:
+        while curr: stack.append(curr); curr = curr.left
+        curr = stack.pop(); k -= 1
+        if k == 0: return curr.val
+        curr = curr.right`
+  },
+  {
+    id: 'tree-t5', label: 'Tree E — Lowest Common Ancestor', color: '#6366f1',
+    tag: 'LCA · LCA of BST · All Nodes Distance K',
+    code: `def lca(root, p, q):
+    if not root or root == p or root == q:
+        return root
+    left  = lca(root.left,  p, q)
+    right = lca(root.right, p, q)
+    if left and right:
+        return root    # p and q on different sides
+    return left or right`
+  }
+];
+
+/* ============================================================
+   SORTING PATTERN TEMPLATES
+   ============================================================ */
+const SORTING_TEMPLATES = [
+  {
+    id: 'sort-t1', label: 'Sort A — Custom Comparator', color: '#10b981',
+    tag: 'Largest Number · Sort Colors · Wiggle Sort',
+    code: `import functools
+# Sort by custom rule using cmp_to_key
+def compare(a, b):
+    if str(a)+str(b) > str(b)+str(a): return -1   # a before b
+    return 1
+nums.sort(key=functools.cmp_to_key(compare))
+return ''.join(map(str, nums))`
+  },
+  {
+    id: 'sort-t2', label: 'Sort B — Merge Sort (Count Inversions)', color: '#059669',
+    tag: 'Count Inversions · Sort Linked List · Merge K Sorted',
+    code: `def merge_sort(arr):
+    if len(arr) <= 1: return arr, 0
+    mid = len(arr) // 2
+    left, lc = merge_sort(arr[:mid])
+    right, rc = merge_sort(arr[mid:])
+    merged = []; inv = lc + rc; i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            merged.append(left[i]); i += 1
+        else:
+            merged.append(right[j])
+            inv += len(left) - i       # all remaining left elements invert
+            j += 1
+    return merged + left[i:] + right[j:], inv`
+  },
+  {
+    id: 'sort-t3', label: 'Sort C — Counting / Bucket Sort', color: '#0ea5e9',
+    tag: 'Sort Colors (Dutch Flag) · Top K Frequent · Maximum Gap',
+    code: `# Dutch National Flag — 3-way partition
+lo = mid = 0; hi = len(nums) - 1
+while mid <= hi:
+    if nums[mid] == 0:
+        nums[lo], nums[mid] = nums[mid], nums[lo]
+        lo += 1; mid += 1
+    elif nums[mid] == 1:
+        mid += 1
+    else:
+        nums[mid], nums[hi] = nums[hi], nums[mid]
+        hi -= 1`
+  },
+  {
+    id: 'sort-t4', label: 'Sort D — Binary Search (Classic Template)', color: '#14b8a6',
+    tag: 'Search in Rotated Array · Find First/Last Position · Peak Element',
+    code: `# Closed-interval binary search — most universal
+lo, hi = 0, len(nums) - 1
+while lo <= hi:
+    mid = (lo + hi) // 2
+    if nums[mid] == target:
+        return mid
+    elif nums[mid] < target:
+        lo = mid + 1
+    else:
+        hi = mid - 1
+return -1
+
+# Left-boundary variant (first occurrence):
+# while lo < hi:
+#     mid = (lo+hi)//2
+#     if nums[mid] < target: lo = mid+1
+#     else: hi = mid`
+  },
+  {
+    id: 'sort-t5', label: 'Sort E — Monotonic Stack (Next Greater)', color: '#6366f1',
+    tag: 'Next Greater Element · Daily Temperatures · Largest Rectangle · Trapping Rain Water',
+    code: `# Next Greater Element — monotonic decreasing stack
+result = [-1] * len(nums)
+stack = []   # stores indices
+for i in range(len(nums)):
+    while stack and nums[i] > nums[stack[-1]]:
+        idx = stack.pop()
+        result[idx] = nums[i]      # nums[i] is next greater
+    stack.append(i)
+return result`
+  }
+];
+
+/* ============================================================
+   TEMPLATE BUILDER — generic factory
+   ============================================================ */
+function buildTemplateSection(id, label, iconPath, templates) {
+  let html = `<div class="grd-tmpl-wrap">
+    <button class="grd-tmpl-toggle" id="${id}-tmpl-toggle" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" width="15" height="15" aria-hidden="true">
+        ${iconPath}
+      </svg>
+      <span>${label}</span>
+      <span class="grd-tmpl-count">${templates.length} patterns</span>
+      <svg class="grd-tmpl-chev" viewBox="0 0 24 24" fill="none" width="15" height="15" aria-hidden="true">
+        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="grd-tmpl-body" id="${id}-tmpl-body">
+      <div class="grd-tmpl-grid">`;
+
+  templates.forEach(t => {
+    const codeEsc = esc(t.code);
+    html += `<div class="grd-tmpl-card" style="--tc:${t.color}">
+      <div class="grd-tmpl-card-head">
+        <span class="grd-tmpl-dot" style="background:${t.color};box-shadow:0 0 8px ${t.color}66"></span>
+        <div class="grd-tmpl-meta">
+          <div class="grd-tmpl-title">${esc(t.label)}</div>
+          <div class="grd-tmpl-tag">${esc(t.tag)}</div>
+        </div>
+        <button class="grd-tmpl-copy" data-code="${codeEsc}" title="Copy code">
+          <svg viewBox="0 0 24 24" fill="none" width="13" height="13"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <pre class="grd-tmpl-code"><code>${codeEsc}</code></pre>
+    </div>`;
+  });
+
+  html += `</div></div></div>`;
+  return html;
+}
+
 function buildGreedyTemplates() {
   let html = `<div class="grd-tmpl-wrap">
     <button class="grd-tmpl-toggle" id="grd-tmpl-toggle" aria-expanded="false">
@@ -687,6 +1426,54 @@ function buildDetail(sec) {
   }
   if (sec.id === 'heap') {
     html += buildHeapTemplates();
+  }
+  if (sec.id === 'dp-basic') {
+    html += buildTemplateSection('dp-basic',
+      'DP Basic Pattern Templates',
+      '<rect x="4" y="4" width="7" height="7" rx="1.6" stroke="currentColor" stroke-width="2"/><rect x="13" y="4" width="7" height="7" rx="1.6" stroke="currentColor" stroke-width="2"/><rect x="4" y="13" width="7" height="7" rx="1.6" stroke="currentColor" stroke-width="2"/><rect x="13" y="13" width="7" height="7" rx="1.6" stroke="currentColor" stroke-width="2"/>',
+      DP_BASIC_TEMPLATES);
+  }
+  if (sec.id === 'dp-advanced') {
+    html += buildTemplateSection('dp-advanced',
+      'DP Advanced Pattern Templates',
+      '<rect x="3.5" y="3.5" width="17" height="17" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3.5 9.4h17M3.5 14.8h17M9.4 3.5v17M14.8 3.5v17" stroke="currentColor" stroke-width="2"/>',
+      DP_ADVANCED_TEMPLATES);
+  }
+  if (sec.id === 'graphs') {
+    html += buildTemplateSection('graphs',
+      'Graph Pattern Templates',
+      '<circle cx="6" cy="6" r="2.3" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="7" r="2.3" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="18" r="2.3" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="17" r="2.3" stroke="currentColor" stroke-width="2"/><path d="M8 7 16 6.6M8 16.4 16 8.4M11 17.4 16 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+      GRAPHS_TEMPLATES);
+  }
+  if (sec.id === 'recursion') {
+    html += buildTemplateSection('recursion',
+      'Backtracking Pattern Templates',
+      '<path d="M4 9a8 8 0 0 1 13.5-3.5L20 8M20 4v4h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 15a8 8 0 0 1-13.5 3.5L4 16M4 20v-4h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+      RECURSION_TEMPLATES);
+  }
+  if (sec.id === 'arrays') {
+    html += buildTemplateSection('arrays',
+      'Arrays & Sliding Window Pattern Templates',
+      '<rect x="3" y="9" width="18" height="6" rx="1.6" stroke="currentColor" stroke-width="2"/><path d="M9 9v6M15 9v6" stroke="currentColor" stroke-width="2"/>',
+      ARRAYS_TEMPLATES);
+  }
+  if (sec.id === 'strings') {
+    html += buildTemplateSection('strings',
+      'String Pattern Templates',
+      '<path d="M5 6h14M5 11h10M5 16h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+      STRINGS_TEMPLATES);
+  }
+  if (sec.id === 'trees') {
+    html += buildTemplateSection('trees',
+      'Tree Pattern Templates',
+      '<circle cx="12" cy="5" r="2.4" stroke="currentColor" stroke-width="2"/><circle cx="6" cy="18" r="2.4" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="18" r="2.4" stroke="currentColor" stroke-width="2"/><path d="M10.4 6.8 7.4 16M13.6 6.8 16.6 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+      TREES_TEMPLATES);
+  }
+  if (sec.id === 'sorting') {
+    html += buildTemplateSection('sorting',
+      'Sorting & Binary Search Pattern Templates',
+      '<path d="M4 6h13M4 11h9M4 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19 7v10m0 0 2.4-2.4M19 17l-2.4-2.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+      SORTING_TEMPLATES);
   }
 
   const multi = sec.cards.length > 1;
@@ -1140,8 +1927,9 @@ function wire() {
   $('#fab-topics').addEventListener('click', openDrawer);
   $('#scrim').addEventListener('click', closeDrawer);
 
-  // tools: mock exam + find/add + remove stuck + hidden
+  // tools: mock exam + history + find/add + remove stuck + hidden
   const oe = $('#open-exam'); if (oe) oe.addEventListener('click', openExamModal);
+  const vhBtn = $('#view-history'); if (vhBtn) vhBtn.addEventListener('click', showMockHistory);
   const of = $('#open-finder'); if (of) of.addEventListener('click', () => openFinderModal());
   const rs = $('#remove-stuck'); if (rs) rs.addEventListener('click', removeStuck);
   const vh = $('#view-hidden'); if (vh) vh.addEventListener('click', openHiddenModal);
@@ -1176,8 +1964,12 @@ function qDifficulty(it) {
   if (it.hard) return 'hard';
   const t = topicTier(it.topic);
   if (t === 4) return 'hard';
-  if (t === 1) return 'easy';
-  return 'medium';
+  // Use position within topic to spread easy/medium/hard across all tier-1/2/3 topics.
+  // rank is 0 (first question) to 1 (last question) within the topic's ordered list.
+  const rank = QID_RANK[it.id] != null ? QID_RANK[it.id] : 0.5;
+  if (rank < 0.35) return 'easy';
+  if (rank < 0.70) return 'medium';
+  return 'hard';
 }
 const DIFF_META = { easy: { label: 'Easy', c: '#10B981' }, medium: { label: 'Medium', c: '#F59E0B' }, hard: { label: 'Hard', c: '#EF4444' } };
 
@@ -1300,10 +2092,10 @@ function examModalHTML() {
   return `
     <div class="exam-toolbar">
       <div class="seg-group" id="exam-sizes">${sizes}</div>
-      <div class="exam-timer" id="exam-timer">${fmtClock(mins * 60)}</div>
-      <div class="exam-actions">
-        <button class="ghost-btn" id="exam-start">▶ Start</button>
+      <div class="exam-actions" style="margin-left: auto; display: flex; gap: 8px;">
+        <button class="primary-btn" id="exam-accept" style="padding: 0 16px; margin: 0; min-width: max-content;">Accept & Start</button>
         <button class="ghost-btn" id="exam-regen">⟳ Regenerate</button>
+        <button class="ghost-btn" id="exam-history-btn">History</button>
       </div>
     </div>
     <div class="exam-topic-filter">
@@ -1387,23 +2179,235 @@ function wireExamModal(body) {
     examState.size = +b.dataset.size; state.ui = state.ui || {}; state.ui.examSize = examState.size; saveState();
     examState.questions = generateExam(examState.size, examState.topicInput); examState.remaining = null; stopExamTimer(); refreshExamBody();
   });
-  $('#exam-start', body).addEventListener('click', toggleExamTimer);
+  $('#exam-accept', body).addEventListener('click', startMockSession);
+  $('#exam-history-btn', body).addEventListener('click', showMockHistory);
 }
 function refreshExamBody() { const body = $('#modal-body'); body.innerHTML = examModalHTML(); wireExamModal(body); }
 function fmtClock(sec) { const m = Math.floor(sec / 60), s = sec % 60; return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0'); }
-function toggleExamTimer() {
-  if (examTimer) { stopExamTimer(); return; }
-  const tEl = $('#exam-timer'), btn = $('#exam-start');
-  if (examState.remaining == null) examState.remaining = examState.questions.reduce((m, q) => m + DIFF_TIME[q.diff], 0) * 60;
-  if (btn) btn.textContent = '❚❚ Pause';
-  if (tEl) tEl.classList.add('running');
-  examTimer = setInterval(() => {
-    examState.remaining--;
-    if (tEl) tEl.textContent = fmtClock(Math.max(0, examState.remaining));
-    if (examState.remaining <= 0) { stopExamTimer(); if (tEl) { tEl.textContent = "Time's up"; tEl.classList.add('time-up'); } }
-  }, 1000);
+// Timer moved to session logic
+function stopExamTimer() { if (examTimer) { clearInterval(examTimer); examTimer = null; } }
+
+/* ============================================================
+   MOCK SESSION (FULL SCREEN)
+   ============================================================ */
+let mockSessionData = null;
+
+function startMockSession() {
+  closeModal();
+  const initDurationSeconds = examState.questions.reduce((m, q) => m + DIFF_TIME[q.diff], 0) * 60;
+  mockSessionData = {
+    questions: JSON.parse(JSON.stringify(examState.questions)),
+    duration: initDurationSeconds,
+    remaining: initDurationSeconds,
+    activeIndex: 0,
+    answers: {},
+    startTime: Date.now()
+  };
+
+  $('.app-shell').hidden = true;
+  $('#mock-history-screen').hidden = true;
+  $('#mock-session-screen').hidden = false;
+
+  renderMockSessionSidebar();
+  renderMockSessionDetail();
+
+  $('#mock-timer-display').textContent = fmtClock(mockSessionData.remaining);
+  $('#mock-timer-display').classList.remove('time-up', 'running');
+  $('#mock-start-btn').textContent = '▶ Start Timer';
+
+  wireMockSession();
 }
-function stopExamTimer() { if (examTimer) { clearInterval(examTimer); examTimer = null; } const btn = $('#exam-start'); if (btn) btn.textContent = '▶ Start'; const tEl = $('#exam-timer'); if (tEl) tEl.classList.remove('running'); }
+
+function renderMockSessionSidebar() {
+  const list = $('#mock-questions-list');
+  if (!list) return;
+  list.innerHTML = mockSessionData.questions.map((q, i) => `
+    <div class="mock-q-item ${i === mockSessionData.activeIndex ? 'is-active' : ''} ${mockSessionData.answers[i] ? 'is-answered' : ''}" data-idx="${i}">
+      <div class="mock-q-checkbox" data-idx="${i}"><input type="checkbox" ${mockSessionData.answers[i] ? 'checked' : ''} tabindex="-1"></div>
+      <div class="mock-q-label">Q${i + 1}. ${esc(q.name)}</div>
+      <div class="diffchip" style="--dc:${DIFF_META[q.diff].c}; transform:scale(0.85);">${DIFF_META[q.diff].label[0]}</div>
+    </div>
+  `).join('');
+}
+
+function renderMockSessionDetail() {
+  const detail = $('#mock-question-detail');
+  if (!detail) return;
+  const i = mockSessionData.activeIndex;
+  const q = mockSessionData.questions[i];
+  if (!q) return;
+
+  const dm = DIFF_META[q.diff];
+  const acc = (META[q.topic] && META[q.topic].c) || '#3B82F6';
+
+  detail.innerHTML = `
+    <div class="mock-q-number">Question ${i + 1} of ${mockSessionData.questions.length}</div>
+    <div class="mock-q-title">${esc(q.name)}</div>
+    <div class="mock-q-tags">
+      <span class="mock-q-tag mock-q-tag-difficulty" style="color:${dm.c}; background:color-mix(in srgb, ${dm.c} 15%, transparent);">${dm.label}</span>
+      <span class="mock-q-tag mock-q-tag-topic" style="border: 1px solid var(--border);">${esc(q.topicLabel || '—')}</span>
+    </div>
+    <a class="mock-q-link" href="${esc(q.url || '#')}" target="_blank" rel="noopener">
+      Open Problem <svg viewBox="0 0 24 24" fill="none"><path d="M14 4h6v6M20 4l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  `;
+}
+
+function wireMockSession() {
+  const back = $('#mock-back-btn');
+  const startBtn = $('#mock-start-btn');
+  const submitBtn = $('#mock-submit-btn');
+  const list = $('#mock-questions-list');
+
+  // replace handlers to avoid duplicates
+  const cloneBack = back.cloneNode(true); back.parentNode.replaceChild(cloneBack, back);
+  const cloneStart = startBtn.cloneNode(true); startBtn.parentNode.replaceChild(cloneStart, startBtn);
+  const cloneSubmit = submitBtn.cloneNode(true); submitBtn.parentNode.replaceChild(cloneSubmit, submitBtn);
+  const cloneList = list.cloneNode(true); list.parentNode.replaceChild(cloneList, list);
+
+  cloneBack.addEventListener('click', () => {
+    if (confirm('Are you sure you want to exit? Progress will not be saved.')) {
+      stopExamTimer();
+      $('#mock-session-screen').hidden = true;
+      $('.app-shell').hidden = false;
+    }
+  });
+
+  cloneStart.addEventListener('click', () => {
+    const tEl = $('#mock-timer-display');
+    if (examTimer) {
+      stopExamTimer();
+      cloneStart.textContent = '▶ Resume Timer';
+      tEl.classList.remove('running');
+    } else {
+      cloneStart.textContent = '❚❚ Pause Timer';
+      tEl.classList.add('running');
+      examTimer = setInterval(() => {
+        mockSessionData.remaining--;
+        tEl.textContent = fmtClock(Math.max(0, mockSessionData.remaining));
+        if (mockSessionData.remaining <= 0) {
+          stopExamTimer();
+          tEl.textContent = "Time's up";
+          tEl.classList.add('time-up');
+        }
+      }, 1000);
+    }
+  });
+
+  cloneSubmit.addEventListener('click', () => {
+    stopExamTimer();
+    const completed = Object.keys(mockSessionData.answers).filter(k => mockSessionData.answers[k]).length;
+    state.mockHistory = state.mockHistory || [];
+    state.mockHistory.unshift({
+      id: 'mock-' + Date.now(),
+      date: new Date().toISOString(),
+      score: completed,
+      total: mockSessionData.questions.length,
+      timeTaken: mockSessionData.duration - Math.max(0, mockSessionData.remaining),
+      questions: mockSessionData.questions.map((q, j) => ({
+        name: q.name,
+        diff: q.diff,
+        topic: q.topicLabel,
+        solved: !!mockSessionData.answers[j]
+      }))
+    });
+    saveState();
+    toast('Mock Session Saved!');
+    $('#mock-session-screen').hidden = true;
+    showMockHistory();
+  });
+
+  cloneList.addEventListener('click', e => {
+    const qItem = e.target.closest('.mock-q-item');
+    if (!qItem) return;
+    const idx = parseInt(qItem.dataset.idx, 10);
+    if (e.target.tagName === 'INPUT') {
+      mockSessionData.answers[idx] = e.target.checked;
+      renderMockSessionSidebar();
+    } else {
+      mockSessionData.activeIndex = idx;
+      renderMockSessionSidebar();
+      renderMockSessionDetail();
+    }
+  });
+
+  // Automatically start the timer when session starts
+  cloneStart.click();
+}
+
+function showMockHistory() {
+  closeModal();
+  $('.app-shell').hidden = true;
+  $('#mock-session-screen').hidden = true;
+  $('#mock-history-screen').hidden = false;
+
+  const back = $('#mock-history-back-btn');
+  const cloneBack = back.cloneNode(true); back.parentNode.replaceChild(cloneBack, back);
+  cloneBack.addEventListener('click', () => {
+    $('#mock-history-screen').hidden = true;
+    $('.app-shell').hidden = false;
+  });
+
+  const clearBtn = $('#mock-history-clear-btn');
+  if (clearBtn) {
+    const cloneClear = clearBtn.cloneNode(true); clearBtn.parentNode.replaceChild(cloneClear, clearBtn);
+    cloneClear.addEventListener('click', () => {
+      if (state.mockHistory && state.mockHistory.length > 0) {
+        if (confirm('Are you sure you want to clear your Mock History? This will not affect your main track record.')) {
+          state.mockHistory = [];
+          saveState();
+          renderMockHistory();
+          toast('Mock history cleared!');
+        }
+      } else {
+        toast('Mock history is already empty.');
+      }
+    });
+  }
+
+  renderMockHistory();
+}
+
+function renderMockHistory() {
+  const list = $('#mock-history-list');
+  if (!list) return;
+  const history = state.mockHistory || [];
+
+  if (!history.length) {
+    list.innerHTML = `<div class="empty-state"><p>No mock sessions yet. Create one to get started!</p></div>`;
+    return;
+  }
+
+  list.innerHTML = history.map(h => {
+    const d = new Date(h.date);
+    const dateStr = (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear() + ' ' + d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+    return `
+      <div class="mock-history-item">
+        <div class="mock-history-item-header">
+          <div class="mock-history-date">${dateStr}</div>
+          <div class="mock-history-stats">
+            <div class="mock-history-stat">
+              Score: <span class="mock-history-stat-value">${h.score} / ${h.total}</span>
+            </div>
+            <div class="mock-history-stat">
+              Time: <span class="mock-history-stat-value">${fmtClock(h.timeTaken)}</span>
+            </div>
+          </div>
+        </div>
+        <div class="mock-history-item-body">
+          ${h.questions.map(q => `
+            <div class="mock-history-detail">
+              <div class="mock-history-detail-label">${q.solved ? '<span style="color:var(--green)">✓</span> ' : ''}${esc(q.topic || 'Unknown')}</div>
+              <div class="mock-history-detail-value">${esc(q.name)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
 
 /* ============================================================
    INLINE ADD-TO-TOPIC
