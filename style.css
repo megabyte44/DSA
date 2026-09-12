@@ -642,6 +642,9 @@ body.sidebar-collapsed .sidebar-toggle svg { transform: rotate(180deg); }
   transition: transform .4s var(--spring);
 }
 .fab-topics svg { width: 19px; height: 19px; }
+.fab-topics .fab-icon-close { display: none; }
+.fab-topics.is-open .fab-icon-open { display: none; }
+.fab-topics.is-open .fab-icon-close { display: block; }
 .scrim { position: fixed; inset: 0; z-index: 55; background: rgba(5,7,11,.6); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); animation: fadeIn .25s var(--ease); }
 
 /* ---------- Scrollbar ---------- */
@@ -695,6 +698,10 @@ body.sidebar-collapsed .sidebar-toggle svg { transform: rotate(180deg); }
     position: fixed; top: 0; left: 0; bottom: 0; width: min(320px, 85vw); max-height: none;
     border-radius: 0 var(--radius) var(--radius) 0; z-index: 70;
     padding: 20px 14px;
+    /* the desktop fadeUp entrance animation also animates `transform` with fill-mode:both,
+       which would permanently pin transform to translateY(0) and defeat the slide-off below —
+       kill it here so the drawer's own transform is the only one in play */
+    animation: none;
     transform: translateX(-105%); transition: transform .38s var(--ease-out);
     background: rgba(11,16,25,.97);
     overflow-y: auto; overflow-x: hidden;
@@ -712,7 +719,8 @@ body.sidebar-collapsed .sidebar-toggle svg { transform: rotate(180deg); }
   .nav-label { font-size: 13px; }
   .nav-ico { width: 30px; height: 30px; border-radius: 9px; }
   .nav-ico svg { width: 17px; height: 17px; }
-  .sidebar-toggle { display: none; }
+  /* chevron in the drawer header doubles as a close button on mobile */
+  .sidebar-toggle { transform: rotate(180deg); }
   .sidebar-peek { display: none !important; }  /* peek tab not needed on mobile */
   .fab-topics { display: inline-flex; transform: translateX(-50%) translateY(0); }
 }

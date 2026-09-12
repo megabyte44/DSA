@@ -1747,8 +1747,19 @@ function setCollapsed(c) {
   const peek = $('#sidebar-peek');
   if (peek && window.innerWidth > 900) peek.style.display = c ? 'flex' : 'none';
 }
-function openDrawer() { $('#sidebar').classList.add('is-open'); const s = $('#scrim'); s.hidden = false; }
-function closeDrawer() { $('#sidebar').classList.remove('is-open'); $('#scrim').hidden = true; }
+function openDrawer() {
+  $('#sidebar').classList.add('is-open');
+  $('#scrim').hidden = false;
+  const fab = $('#fab-topics');
+  if (fab) { fab.classList.add('is-open'); fab.setAttribute('aria-expanded', 'true'); fab.setAttribute('aria-label', 'Close topics'); }
+}
+function closeDrawer() {
+  $('#sidebar').classList.remove('is-open');
+  $('#scrim').hidden = true;
+  const fab = $('#fab-topics');
+  if (fab) { fab.classList.remove('is-open'); fab.setAttribute('aria-expanded', 'false'); fab.setAttribute('aria-label', 'Open topics'); }
+}
+function toggleDrawer() { $('#sidebar').classList.contains('is-open') ? closeDrawer() : openDrawer(); }
 
 /* ============================================================
    ACTIVE NAV ON SCROLL
@@ -1917,14 +1928,17 @@ function wire() {
     const chip = e.target.closest('.chip'); if (chip) setFilter(chip.dataset.filter);
   });
 
-  // sidebar collapse (desktop)
+  // sidebar collapse (desktop) / close (mobile drawer)
   const stog = $('#sidebar-toggle');
-  if (stog) stog.addEventListener('click', () => setCollapsed(!document.body.classList.contains('sidebar-collapsed')));
+  if (stog) stog.addEventListener('click', () => {
+    if (window.innerWidth <= 900 && $('#sidebar').classList.contains('is-open')) { closeDrawer(); return; }
+    setCollapsed(!document.body.classList.contains('sidebar-collapsed'));
+  });
   const peek = $('#sidebar-peek');
   if (peek) peek.addEventListener('click', () => setCollapsed(false));
 
   // mobile drawer
-  $('#fab-topics').addEventListener('click', openDrawer);
+  $('#fab-topics').addEventListener('click', toggleDrawer);
   $('#scrim').addEventListener('click', closeDrawer);
 
   // tools: mock exam + history + find/add + remove stuck + hidden
