@@ -754,7 +754,10 @@ body.sidebar-collapsed .sidebar-toggle svg { transform: rotate(180deg); }
   .stats-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .stat-card:nth-child(5) { grid-column: span 2; }
   .hero-controls { flex-direction: column; align-items: stretch; }
-  .search-wrap { max-width: none; }
+  /* flex-basis/grow from .search-wrap's `flex: 1 1 320px` target the row layout's width —
+     once hero-controls goes column above, that same shorthand reads as a 320px height
+     that keeps growing, leaving a tall empty box. Pin it back to content height. */
+  .search-wrap { max-width: none; flex: none; }
   .filter-chips { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .filter-chips::-webkit-scrollbar { display: none; }
   .card-head { gap: 12px; padding: 15px; }
