@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "id": "2026-08-14-day1",
+  "day": 1,
+  "setLabel": "Day 1",
+  "blind": true,
+  "assign": [
+    {
+      "slot": "D1-P1",
+      "qid": "lc:smallest-range-covering-elements-from-k-lists",
+      "capMin": 25
+    },
+    {
+      "slot": "D1-P2",
+      "qid": "lc:palindrome-partitioning-ii",
+      "capMin": 25
+    },
+    {
+      "slot": "D1-P3",
+      "qid": "lc:remove-k-digits",
+      "capMin": 25
+    },
+    {
+      "slot": "D1-P4",
+      "qid": "lc:top-k-frequent-words",
+      "capMin": 25
+    },
+    {
+      "slot": "D1-P5",
+      "qid": "lc:number-of-subarrays-with-bounded-maximum",
+      "capMin": 25
+    },
+    {
+      "slot": "D1-P6",
+      "qid": "gfg:job-sequencing-problem-1587115620",
+      "capMin": 25
+    }
+  ],
+  "syncLeetcode": true
+}

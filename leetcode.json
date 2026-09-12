@@ -1,0 +1,2812 @@
+{
+  "schema": 1,
+  "syncedAt": "2026-08-13T15:38:24.336Z",
+  "username": "pn100",
+  "fullSync": true,
+  "profile": {
+    "ranking": 213505,
+    "solved": [
+      {
+        "difficulty": "All",
+        "count": 490,
+        "submissions": 1309
+      },
+      {
+        "difficulty": "Easy",
+        "count": 160,
+        "submissions": 404
+      },
+      {
+        "difficulty": "Medium",
+        "count": 303,
+        "submissions": 850
+      },
+      {
+        "difficulty": "Hard",
+        "count": 27,
+        "submissions": 55
+      }
+    ],
+    "contest": {
+      "rating": 1696.6041186496443,
+      "globalRanking": 122277,
+      "attendedContestsCount": 8,
+      "topPercentage": 14.18
+    },
+    "byTag": {
+      "advanced": [
+        {
+          "tagName": "Data Stream",
+          "tagSlug": "data-stream",
+          "problemsSolved": 2
+        },
+        {
+          "tagName": "Game Theory",
+          "tagSlug": "game-theory",
+          "problemsSolved": 3
+        },
+        {
+          "tagName": "Rolling Hash",
+          "tagSlug": "rolling-hash",
+          "problemsSolved": 2
+        },
+        {
+          "tagName": "Backtracking",
+          "tagSlug": "backtracking",
+          "problemsSolved": 21
+        },
+        {
+          "tagName": "Bitmask",
+          "tagSlug": "bitmask",
+          "problemsSolved": 2
+        },
+        {
+          "tagName": "Quickselect",
+          "tagSlug": "quickselect",
+          "problemsSolved": 3
+        },
+        {
+          "tagName": "Dynamic Programming",
+          "tagSlug": "dynamic-programming",
+          "problemsSolved": 72
+        },
+        {
+          "tagName": "Divide and Conquer",
+          "tagSlug": "divide-and-conquer",
+          "problemsSolved": 18
+        },
+        {
+          "tagName": "Trie",
+          "tagSlug": "trie",
+          "problemsSolved": 3
+        },
+        {
+          "tagName": "Union-Find",
+          "tagSlug": "union-find",
+          "problemsSolved": 21
+        },
+        {
+          "tagName": "Binary Indexed Tree",
+          "tagSlug": "binary-indexed-tree",
+          "problemsSolved": 2
+        },
+        {
+          "tagName": "Segment Tree",
+          "tagSlug": "segment-tree",
+          "problemsSolved": 2
+        },
+        {
+          "tagName": "Monotonic Stack",
+          "tagSlug": "monotonic-stack",
+          "problemsSolved": 10
+        },
+        {
+          "tagName": "Monotonic Queue",
+          "tagSlug": "monotonic-queue",
+          "problemsSolved": 2
+        },
+        {
+          "tagName": "Topological Sort",
+          "tagSlug": "topological-sort",
+          "problemsSolved": 4
+        },
+        {
+          "tagName": "Shortest Path",
+          "tagSlug": "shortest-path",
+          "problemsSolved": 6
+        }
+      ],
+      "intermediate": [
+        {
+          "tagName": "Tree",
+          "tagSlug": "tree",
+          "problemsSolved": 45
+        },
+        {
+          "tagName": "Binary Tree",
+          "tagSlug": "binary-tree",
+          "problemsSolved": 44
+        },
+        {
+          "tagName": "Hash Table",
+          "tagSlug": "hash-table",
+          "problemsSolved": 78
+        },
+        {
+          "tagName": "Ordered Set",
+          "tagSlug": "ordered-set",
+          "problemsSolved": 1
+        },
+        {
+          "tagName": "Graph Theory",
+          "tagSlug": "graph",
+          "problemsSolved": 24
+        },
+        {
+          "tagName": "Greedy",
+          "tagSlug": "greedy",
+          "problemsSolved": 33
+        },
+        {
+          "tagName": "Binary Search",
+          "tagSlug": "binary-search",
+          "problemsSolved": 42
+        },
+        {
+          "tagName": "Depth-First Search",
+          "tagSlug": "depth-first-search",
+          "problemsSolved": 65
+        },
+        {
+          "tagName": "Breadth-First Search",
+          "tagSlug": "breadth-first-search",
+          "problemsSolved": 54
+        },
+        {
+          "tagName": "Recursion",
+          "tagSlug": "recursion",
+          "problemsSolved": 13
+        },
+        {
+          "tagName": "Sliding Window",
+          "tagSlug": "sliding-window",
+          "problemsSolved": 22
+        },
+        {
+          "tagName": "Bit Manipulation",
+          "tagSlug": "bit-manipulation",
+          "problemsSolved": 30
+        },
+        {
+          "tagName": "Math",
+          "tagSlug": "math",
+          "problemsSolved": 40
+        },
+        {
+          "tagName": "Design",
+          "tagSlug": "design",
+          "problemsSolved": 10
+        },
+        {
+          "tagName": "Database",
+          "tagSlug": "database",
+          "problemsSolved": 37
+        }
+      ],
+      "fundamental": [
+        {
+          "tagName": "Array",
+          "tagSlug": "array",
+          "problemsSolved": 235
+        },
+        {
+          "tagName": "Matrix",
+          "tagSlug": "matrix",
+          "problemsSolved": 35
+        },
+        {
+          "tagName": "String",
+          "tagSlug": "string",
+          "problemsSolved": 82
+        },
+        {
+          "tagName": "Simulation",
+          "tagSlug": "simulation",
+          "problemsSolved": 19
+        },
+        {
+          "tagName": "Enumeration",
+          "tagSlug": "enumeration",
+          "problemsSolved": 7
+        },
+        {
+          "tagName": "Sorting",
+          "tagSlug": "sorting",
+          "problemsSolved": 56
+        },
+        {
+          "tagName": "Stack",
+          "tagSlug": "stack",
+          "problemsSolved": 32
+        },
+        {
+          "tagName": "Queue",
+          "tagSlug": "queue",
+          "problemsSolved": 7
+        },
+        {
+          "tagName": "Linked List",
+          "tagSlug": "linked-list",
+          "problemsSolved": 28
+        },
+        {
+          "tagName": "Two Pointers",
+          "tagSlug": "two-pointers",
+          "problemsSolved": 51
+        }
+      ]
+    }
+  },
+  "recentAccepted": [
+    {
+      "slug": "weighted-sum-of-a-tree",
+      "title": "Weighted Sum of a Tree",
+      "lang": "python3",
+      "at": "2026-08-09T02:58:13.000Z"
+    },
+    {
+      "slug": "minimum-total-price-after-applying-discounts",
+      "title": "Minimum Total Price After Applying Discounts",
+      "lang": "python3",
+      "at": "2026-08-09T02:43:17.000Z"
+    },
+    {
+      "slug": "find-nth-smallest-integer-with-k-one-bits",
+      "title": "Find Nth Smallest Integer With K One Bits",
+      "lang": "python3",
+      "at": "2026-08-08T18:26:17.000Z"
+    },
+    {
+      "slug": "rotate-non-negative-elements",
+      "title": "Rotate Non Negative Elements",
+      "lang": "python3",
+      "at": "2026-08-08T17:45:50.000Z"
+    },
+    {
+      "slug": "minimum-prefix-removal-to-make-array-strictly-increasing",
+      "title": "Minimum Prefix Removal to Make Array Strictly Increasing",
+      "lang": "python3",
+      "at": "2026-08-08T17:39:45.000Z"
+    },
+    {
+      "slug": "longest-happy-string",
+      "title": "Longest Happy String",
+      "lang": "python3",
+      "at": "2026-08-08T14:07:46.000Z"
+    },
+    {
+      "slug": "reorganize-string",
+      "title": "Reorganize String",
+      "lang": "python3",
+      "at": "2026-08-08T13:24:56.000Z"
+    },
+    {
+      "slug": "top-k-frequent-elements",
+      "title": "Top K Frequent Elements",
+      "lang": "python3",
+      "at": "2026-08-08T12:41:47.000Z"
+    },
+    {
+      "slug": "best-time-to-buy-and-sell-stock",
+      "title": "Best Time to Buy and Sell Stock",
+      "lang": "python3",
+      "at": "2026-08-08T12:25:37.000Z"
+    },
+    {
+      "slug": "minimum-operations-to-maximize-last-elements-in-arrays",
+      "title": "Minimum Operations to Maximize Last Elements in Arrays",
+      "lang": "python3",
+      "at": "2026-08-06T13:55:30.000Z"
+    },
+    {
+      "slug": "maximum-alternating-sum-of-squares",
+      "title": "Maximum Alternating Sum of Squares",
+      "lang": "python3",
+      "at": "2026-08-06T13:04:49.000Z"
+    },
+    {
+      "slug": "longest-subsequence-with-non-zero-bitwise-xor",
+      "title": "Longest Subsequence With Non-Zero Bitwise XOR",
+      "lang": "python3",
+      "at": "2026-08-06T12:52:01.000Z"
+    },
+    {
+      "slug": "reshape-the-matrix",
+      "title": "Reshape the Matrix",
+      "lang": "python3",
+      "at": "2026-08-06T12:36:44.000Z"
+    },
+    {
+      "slug": "best-reachable-tower",
+      "title": "Best Reachable Tower",
+      "lang": "python3",
+      "at": "2026-08-06T11:29:57.000Z"
+    },
+    {
+      "slug": "count-caesar-cipher-pairs",
+      "title": "Count Caesar Cipher Pairs",
+      "lang": "python3",
+      "at": "2026-08-06T04:52:16.000Z"
+    },
+    {
+      "slug": "number-of-centered-subarrays",
+      "title": "Number of Centered Subarrays",
+      "lang": "python3",
+      "at": "2026-08-06T04:20:53.000Z"
+    },
+    {
+      "slug": "count-residue-prefixes",
+      "title": "Count Residue Prefixes",
+      "lang": "python3",
+      "at": "2026-08-06T04:12:38.000Z"
+    },
+    {
+      "slug": "word-squares-ii",
+      "title": "Word Squares II",
+      "lang": "python3",
+      "at": "2026-08-06T04:05:39.000Z"
+    },
+    {
+      "slug": "largest-even-number",
+      "title": "Largest Even Number",
+      "lang": "python3",
+      "at": "2026-08-06T04:05:35.000Z"
+    },
+    {
+      "slug": "smallest-divisible-digit-product-i",
+      "title": "Smallest Divisible Digit Product I",
+      "lang": "python3",
+      "at": "2026-08-06T04:02:25.000Z"
+    }
+  ],
+  "reconcile": {
+    "at": "2026-08-13T15:38:24.300Z",
+    "bankLeetcode": 343,
+    "accepted": 490,
+    "applied": [
+      {
+        "qid": "lc:binary-search",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:search-insert-position",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-first-and-last-position-of-element-in-sorted-array",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-peak-element",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:single-element-in-a-sorted-array",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:search-in-rotated-sorted-array",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:search-in-rotated-sorted-array-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-minimum-in-rotated-sorted-array",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-minimum-in-rotated-sorted-array-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:search-a-2d-matrix",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:search-a-2d-matrix-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:median-of-two-sorted-arrays",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:sqrtx",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:koko-eating-bananas",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:capacity-to-ship-packages-within-d-days",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:minimum-number-of-days-to-make-m-bouquets",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-the-smallest-divisor-given-a-threshold",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:minimum-time-to-complete-trips",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:minimum-speed-to-arrive-on-time",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:kth-smallest-element-in-a-sorted-matrix",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:kth-missing-positive-number",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-k-th-smallest-pair-distance",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:split-array-largest-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:minimize-maximum-of-array",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:magnetic-force-between-two-balls",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:maximum-subarray",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:maximum-sum-circular-subarray",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:maximum-absolute-sum-of-any-subarray",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:maximum-product-subarray",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:subarray-sum-equals-k",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:continuous-subarray-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:subarray-sums-divisible-by-k",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:binary-subarrays-with-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:range-sum-query-immutable",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:count-number-of-nice-subarrays",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:product-of-array-except-self",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:single-number",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:single-number-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:range-sum-query-2d-immutable",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:matrix-block-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:maximum-average-subarray-i",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-all-anagrams-in-a-string",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:permutation-in-string",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:longest-substring-without-repeating-characters",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:longest-repeating-character-replacement",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:minimum-window-substring",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:fruit-into-baskets",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:max-consecutive-ones-iii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:sliding-window-maximum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:two-sum-ii-input-array-is-sorted",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:valid-palindrome",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:container-with-most-water",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:trapping-rain-water",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:3sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:4sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:squares-of-a-sorted-array",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:remove-duplicates-from-sorted-array",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:remove-element",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:move-zeroes",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:linked-list-cycle",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:middle-of-the-linked-list",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:merge-sorted-array",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:sort-colors",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:partition-array-according-to-given-pivot",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:two-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:contains-duplicate-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:longest-consecutive-sequence",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:group-anagrams",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:top-k-frequent-elements",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:sort-characters-by-frequency",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:first-unique-character-in-a-string",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:contains-duplicate",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:intersection-of-two-arrays",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:happy-number",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:isomorphic-strings",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:valid-palindrome-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:reverse-words-in-a-string",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:reverse-string",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-the-index-of-the-first-occurrence-in-a-string",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:repeated-substring-pattern",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:repeated-dna-sequences",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:valid-anagram",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:ransom-note",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:longest-palindrome",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:count-and-say",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:string-compression",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:longest-common-prefix",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:decode-string",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:multiply-strings",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:linked-list-cycle-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-the-duplicate-number",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:reverse-linked-list",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:reverse-linked-list-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:reverse-nodes-in-k-group",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:palindrome-linked-list",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:swap-nodes-in-pairs",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:merge-two-sorted-lists",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:merge-k-sorted-lists",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:sort-list",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:reorder-list",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:add-two-numbers",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:remove-nth-node-from-end-of-list",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:valid-parentheses",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:baseball-game",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:backspace-string-compare",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:remove-all-adjacent-duplicates-in-string",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:make-the-string-great",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:next-greater-element-i",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:daily-temperatures",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:final-prices-with-a-special-discount-in-a-shop",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:next-greater-element-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:online-stock-span",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:asteroid-collision",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:maximum-width-ramp",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:number-of-visible-people-in-a-queue",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:min-stack",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:evaluate-reverse-polish-notation",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:binary-tree-inorder-traversal",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:binary-tree-preorder-traversal",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:binary-tree-postorder-traversal",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:same-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:symmetric-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:flatten-binary-tree-to-linked-list",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:binary-tree-level-order-traversal",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:binary-tree-right-side-view",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:binary-tree-zigzag-level-order-traversal",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:maximum-width-of-binary-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:vertical-order-traversal-of-a-binary-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:maximum-depth-of-binary-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:balanced-binary-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:invert-binary-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:lowest-common-ancestor-of-a-binary-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:count-good-nodes-in-binary-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:subtree-of-another-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:binary-tree-maximum-path-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:diameter-of-binary-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:path-sum-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:sum-root-to-leaf-numbers",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:validate-binary-search-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:kth-smallest-element-in-a-bst",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:insert-into-a-binary-search-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:delete-node-in-a-bst",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:lowest-common-ancestor-of-a-binary-search-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:convert-sorted-array-to-binary-search-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:balance-a-binary-search-tree",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:subsets",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:subsets-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:letter-case-permutation",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:permutations",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:permutations-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:combinations",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:combination-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:combination-sum-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:combination-sum-iii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:word-search",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:n-queens",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:restore-ip-addresses",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:generate-parentheses",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:letter-combinations-of-a-phone-number",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:sort-an-array",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:kth-largest-element-in-an-array",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:count-of-smaller-numbers-after-self",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:climbing-stairs",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:min-cost-climbing-stairs",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:n-th-tribonacci-number",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:perfect-squares",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:fibonacci-number",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:last-stone-weight",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:jump-game-iii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:house-robber",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:house-robber-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:house-robber-iii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:delete-and-earn",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:decode-ways",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:word-break",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:minimum-cost-for-tickets",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:integer-break",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:stone-game",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:partition-equal-subset-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:target-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:last-stone-weight-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:ones-and-zeroes",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:length-of-the-longest-subsequence-that-sums-to-target",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:coin-change",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:coin-change-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:combination-sum-iv",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:merge-intervals",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:non-overlapping-intervals",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:insert-interval",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:minimum-number-of-arrows-to-burst-balloons",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:jump-game",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:jump-game-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:task-scheduler",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:assign-cookies",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:candy",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:gas-station",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:boats-to-save-people",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:lemonade-change",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:k-closest-points-to-origin",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:kth-largest-element-in-a-stream",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-k-pairs-with-smallest-sums",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:reorganize-string",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:number-of-islands",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:flood-fill",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:clone-graph",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:number-of-provinces",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:max-area-of-island",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:course-schedule",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:course-schedule-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-eventual-safe-states",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:redundant-connection",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:accounts-merge",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:number-of-operations-to-make-network-connected",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:satisfiability-of-equality-equations",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:most-stones-removed-with-same-row-or-column",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:rotting-oranges",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:01-matrix",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:pacific-atlantic-water-flow",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:shortest-path-in-binary-matrix",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:network-delay-time",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:cheapest-flights-within-k-stops",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:path-with-minimum-effort",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:min-cost-to-connect-all-points",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:is-graph-bipartite",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:possible-bipartition",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:longest-increasing-subsequence",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:number-of-longest-increasing-subsequence",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:longest-arithmetic-subsequence",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:maximum-alternating-subsequence-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:is-subsequence",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:longest-common-subsequence",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:shortest-common-supersequence",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:edit-distance",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:longest-palindromic-substring",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:palindromic-substrings",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:longest-palindromic-subsequence",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:unique-paths",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:unique-paths-ii",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:out-of-boundary-paths",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:minimum-path-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:triangle",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:minimum-falling-path-sum",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:maximal-square",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:number-of-paths-with-max-score",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:best-time-to-buy-and-sell-stock",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:partition-to-k-equal-sum-subsets",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:matchsticks-to-square",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:largest-number",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:maximum-xor-of-two-numbers-in-an-array",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:xor-queries-of-a-subarray",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:number-of-1-bits",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:counting-bits",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:bitwise-and-of-numbers-range",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:sum-of-two-integers",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:minimum-flips-to-make-a-or-b-equal-to-c",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:largest-number-after-digit-swaps-by-parity",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:implement-queue-using-stacks",
+        "from": "not-attempted",
+        "to": "mastered"
+      },
+      {
+        "qid": "lc:design-circular-queue",
+        "from": "not-attempted",
+        "to": "mastered"
+      }
+    ],
+    "conflicts": [],
+    "unverified": [
+      {
+        "qid": "lc:number-of-steps-to-reduce-a-number-in-binary-representation",
+        "sheet": "mastered",
+        "leetcode": "no accepted submission"
+      }
+    ],
+    "attemptedOnly": [
+      {
+        "qid": "lc:jump-game-vi"
+      },
+      {
+        "qid": "lc:pseudo-palindromic-paths-in-a-binary-tree"
+      },
+      {
+        "qid": "lc:word-search-ii"
+      }
+    ],
+    "outsideBank": [
+      {
+        "slug": "maximize-pair-strength-using-gcd",
+        "title": "Maximize Pair Strength Using GCD",
+        "diff": "easy"
+      },
+      {
+        "slug": "even-number-of-knight-moves",
+        "title": "Even Number of Knight Moves",
+        "diff": "easy"
+      },
+      {
+        "slug": "count-valid-prefixes",
+        "title": "Count Valid Prefixes",
+        "diff": "easy"
+      },
+      {
+        "slug": "maximum-value-of-an-alternating-sequence",
+        "title": "Maximum Value of an Alternating Sequence",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-total-price-after-applying-discounts",
+        "title": "Minimum Total Price After Applying Discounts",
+        "diff": "medium"
+      },
+      {
+        "slug": "widest-possible-fence",
+        "title": "Widest Possible Fence",
+        "diff": "medium"
+      },
+      {
+        "slug": "count-dominant-nodes-in-a-binary-tree",
+        "title": "Count Dominant Nodes in a Binary Tree",
+        "diff": "medium"
+      },
+      {
+        "slug": "number-of-elapsed-seconds-between-two-times",
+        "title": "Number of Elapsed Seconds Between Two Times",
+        "diff": "easy"
+      },
+      {
+        "slug": "sum-of-integers-with-maximum-digit-range",
+        "title": "Sum of Integers with Maximum Digit Range",
+        "diff": "easy"
+      },
+      {
+        "slug": "rearrange-string-to-avoid-character-pair",
+        "title": "Rearrange String to Avoid Character Pair",
+        "diff": "easy"
+      },
+      {
+        "slug": "unique-middle-element",
+        "title": "Unique Middle Element",
+        "diff": "easy"
+      },
+      {
+        "slug": "largest-integer-with-given-digit-sum",
+        "title": "Largest Integer With Given Digit Sum",
+        "diff": "easy"
+      },
+      {
+        "slug": "weighted-sum-of-a-tree",
+        "title": "Weighted Sum of a Tree",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-total-cost-to-process-all-elements",
+        "title": "Minimum Total Cost to Process All Elements",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-initial-strength-to-defeat-all-monsters",
+        "title": "Minimum Initial Strength to Defeat All Monsters",
+        "diff": "medium"
+      },
+      {
+        "slug": "maximum-total-sum-of-k-selected-elements",
+        "title": "Maximum Total Sum of K Selected Elements",
+        "diff": "medium"
+      },
+      {
+        "slug": "subsequence-after-one-replacement",
+        "title": "Subsequence After One Replacement",
+        "diff": "medium"
+      },
+      {
+        "slug": "create-grid-with-exactly-one-path",
+        "title": "Create Grid With Exactly One Path",
+        "diff": "easy"
+      },
+      {
+        "slug": "maximum-valid-pair-sum",
+        "title": "Maximum Valid Pair Sum",
+        "diff": "medium"
+      },
+      {
+        "slug": "aggregate-two-time-series",
+        "title": "Aggregate Two Time Series",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-adjacent-swaps-to-partition-array",
+        "title": "Minimum Adjacent Swaps to Partition Array",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-operations-to-transform-binary-string",
+        "title": "Minimum Operations to Transform Binary String",
+        "diff": "medium"
+      },
+      {
+        "slug": "count-subarrays-with-even-odd-ratio-ii",
+        "title": "Count Subarrays With Even Odd Ratio II",
+        "diff": "hard"
+      },
+      {
+        "slug": "count-subarrays-with-even-odd-ratio-i",
+        "title": "Count Subarrays With Even Odd Ratio I",
+        "diff": "medium"
+      },
+      {
+        "slug": "mirror-frequency-distance",
+        "title": "Mirror Frequency Distance",
+        "diff": "medium"
+      },
+      {
+        "slug": "sum-of-gcd-of-formed-pairs",
+        "title": "Sum of GCD of Formed Pairs",
+        "diff": "medium"
+      },
+      {
+        "slug": "check-digitorial-permutation",
+        "title": "Check Digitorial Permutation",
+        "diff": "medium"
+      },
+      {
+        "slug": "find-the-score-difference-in-a-game",
+        "title": "Find the Score Difference in a Game",
+        "diff": "medium"
+      },
+      {
+        "slug": "toggle-light-bulbs",
+        "title": "Toggle Light Bulbs",
+        "diff": "easy"
+      },
+      {
+        "slug": "count-of-unfinished-tasks-after-each-shift",
+        "title": "Count of Unfinished Tasks After Each Shift",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-prefix-removal-to-make-array-strictly-increasing",
+        "title": "Minimum Prefix Removal to Make Array Strictly Increasing",
+        "diff": "medium"
+      },
+      {
+        "slug": "find-nth-smallest-integer-with-k-one-bits",
+        "title": "Find Nth Smallest Integer With K One Bits",
+        "diff": "hard"
+      },
+      {
+        "slug": "best-reachable-tower",
+        "title": "Best Reachable Tower",
+        "diff": "medium"
+      },
+      {
+        "slug": "count-residue-prefixes",
+        "title": "Count Residue Prefixes",
+        "diff": "easy"
+      },
+      {
+        "slug": "count-caesar-cipher-pairs",
+        "title": "Count Caesar Cipher Pairs",
+        "diff": "medium"
+      },
+      {
+        "slug": "largest-even-number",
+        "title": "Largest Even Number",
+        "diff": "easy"
+      },
+      {
+        "slug": "reverse-string-prefix",
+        "title": "Reverse String Prefix",
+        "diff": "easy"
+      },
+      {
+        "slug": "rotate-non-negative-elements",
+        "title": "Rotate Non Negative Elements",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-subarray-length-with-distinct-sum-at-least-k",
+        "title": "Minimum Subarray Length With Distinct Sum At Least K",
+        "diff": "medium"
+      },
+      {
+        "slug": "number-of-centered-subarrays",
+        "title": "Number of Centered Subarrays",
+        "diff": "medium"
+      },
+      {
+        "slug": "find-missing-elements",
+        "title": "Find Missing Elements",
+        "diff": "easy"
+      },
+      {
+        "slug": "complete-prime-number",
+        "title": "Complete Prime Number",
+        "diff": "medium"
+      },
+      {
+        "slug": "maximize-points-after-choosing-k-tasks",
+        "title": "Maximize Points After Choosing K Tasks",
+        "diff": "medium"
+      },
+      {
+        "slug": "count-distinct-ways-to-form-target-from-two-strings",
+        "title": "Count Distinct Ways to Form Target from Two Strings",
+        "diff": "hard"
+      },
+      {
+        "slug": "smallest-missing-multiple-of-k",
+        "title": "Smallest Missing Multiple of K",
+        "diff": "easy"
+      },
+      {
+        "slug": "maximum-alternating-sum-of-squares",
+        "title": "Maximum Alternating Sum of Squares",
+        "diff": "medium"
+      },
+      {
+        "slug": "word-squares-ii",
+        "title": "Word Squares II",
+        "diff": "medium"
+      },
+      {
+        "slug": "sum-of-elements-with-frequency-divisible-by-k",
+        "title": "Sum of Elements With Frequency Divisible by K",
+        "diff": "easy"
+      },
+      {
+        "slug": "compute-alternating-sum",
+        "title": "Compute Alternating Sum",
+        "diff": "easy"
+      },
+      {
+        "slug": "maximum-bitwise-xor-after-rearrangement",
+        "title": "Maximum Bitwise XOR After Rearrangement",
+        "diff": "medium"
+      },
+      {
+        "slug": "climbing-stairs-ii",
+        "title": "Climbing Stairs II",
+        "diff": "medium"
+      },
+      {
+        "slug": "longest-subsequence-with-non-zero-bitwise-xor",
+        "title": "Longest Subsequence With Non-Zero Bitwise XOR",
+        "diff": "medium"
+      },
+      {
+        "slug": "maximum-total-subarray-value-i",
+        "title": "Maximum Total Subarray Value I",
+        "diff": "medium"
+      },
+      {
+        "slug": "gcd-of-odd-and-even-sums",
+        "title": "GCD of Odd and Even Sums",
+        "diff": "easy"
+      },
+      {
+        "slug": "transform-binary-string-using-subsequence-sort",
+        "title": "Transform Binary String Using Subsequence Sort",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-removals-to-balance-array",
+        "title": "Minimum Removals to Balance Array",
+        "diff": "medium"
+      },
+      {
+        "slug": "maximum-product-of-two-digits",
+        "title": "Maximum Product of Two Digits",
+        "diff": "easy"
+      },
+      {
+        "slug": "path-existence-queries-in-a-graph-i",
+        "title": "Path Existence Queries in a Graph I",
+        "diff": "medium"
+      },
+      {
+        "slug": "number-of-unique-xor-triplets-i",
+        "title": "Number of Unique XOR Triplets I",
+        "diff": "medium"
+      },
+      {
+        "slug": "smallest-palindromic-rearrangement-i",
+        "title": "Smallest Palindromic Rearrangement I",
+        "diff": "medium"
+      },
+      {
+        "slug": "maximize-active-section-with-trade-i",
+        "title": "Maximize Active Section with Trade I",
+        "diff": "medium"
+      },
+      {
+        "slug": "maximum-unique-subarray-sum-after-deletion",
+        "title": "Maximum Unique Subarray Sum After Deletion",
+        "diff": "easy"
+      },
+      {
+        "slug": "filter-occupied-intervals",
+        "title": "Filter Occupied Intervals",
+        "diff": "medium"
+      },
+      {
+        "slug": "transformed-array",
+        "title": "Transformed Array",
+        "diff": "easy"
+      },
+      {
+        "slug": "smallest-divisible-digit-product-i",
+        "title": "Smallest Divisible Digit Product I",
+        "diff": "easy"
+      },
+      {
+        "slug": "remove-methods-from-project",
+        "title": "Remove Methods From Project",
+        "diff": "medium"
+      },
+      {
+        "slug": "modify-the-matrix",
+        "title": "Modify the Matrix",
+        "diff": "easy"
+      },
+      {
+        "slug": "minimum-number-of-pushes-to-type-word-ii",
+        "title": "Minimum Number of Pushes to Type Word II",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-number-of-pushes-to-type-word-i",
+        "title": "Minimum Number of Pushes to Type Word I",
+        "diff": "easy"
+      },
+      {
+        "slug": "minimum-operations-to-maximize-last-elements-in-arrays",
+        "title": "Minimum Operations to Maximize Last Elements in Arrays",
+        "diff": "medium"
+      },
+      {
+        "slug": "find-champion-ii",
+        "title": "Find Champion II",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-string-length-after-removing-substrings",
+        "title": "Minimum String Length After Removing Substrings",
+        "diff": "easy"
+      },
+      {
+        "slug": "maximum-number-of-fish-in-a-grid",
+        "title": "Maximum Number of Fish in a Grid",
+        "diff": "medium"
+      },
+      {
+        "slug": "sliding-subarray-beauty",
+        "title": "Sliding Subarray Beauty",
+        "diff": "medium"
+      },
+      {
+        "slug": "array-prototype-last",
+        "title": "Array Prototype Last",
+        "diff": "easy"
+      },
+      {
+        "slug": "house-robber-iv",
+        "title": "House Robber IV",
+        "diff": "medium"
+      },
+      {
+        "slug": "count-ways-to-build-good-strings",
+        "title": "Count Ways To Build Good Strings",
+        "diff": "medium"
+      },
+      {
+        "slug": "maximum-sum-of-distinct-subarrays-with-length-k",
+        "title": "Maximum Sum of Distinct Subarrays With Length K",
+        "diff": "medium"
+      },
+      {
+        "slug": "task-scheduler-ii",
+        "title": "Task Scheduler II",
+        "diff": "medium"
+      },
+      {
+        "slug": "count-number-of-ways-to-place-houses",
+        "title": "Count Number of Ways to Place Houses",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-obstacle-removal-to-reach-corner",
+        "title": "Minimum Obstacle Removal to Reach Corner",
+        "diff": "hard"
+      },
+      {
+        "slug": "minimum-operations-to-halve-array-sum",
+        "title": "Minimum Operations to Halve Array Sum",
+        "diff": "medium"
+      },
+      {
+        "slug": "smallest-value-of-the-rearranged-number",
+        "title": "Smallest Value of the Rearranged Number",
+        "diff": "medium"
+      },
+      {
+        "slug": "rearrange-array-elements-by-sign",
+        "title": "Rearrange Array Elements by Sign",
+        "diff": "medium"
+      },
+      {
+        "slug": "solving-questions-with-brainpower",
+        "title": "Solving Questions With Brainpower",
+        "diff": "medium"
+      },
+      {
+        "slug": "step-by-step-directions-from-a-binary-tree-node-to-another",
+        "title": "Step-By-Step Directions From a Binary Tree Node to Another",
+        "diff": "medium"
+      },
+      {
+        "slug": "delete-the-middle-node-of-a-linked-list",
+        "title": "Delete the Middle Node of a Linked List",
+        "diff": "medium"
+      },
+      {
+        "slug": "number-of-pairs-of-strings-with-concatenation-equal-to-target",
+        "title": "Number of Pairs of Strings With Concatenation Equal to Target",
+        "diff": "medium"
+      },
+      {
+        "slug": "find-greatest-common-divisor-of-array",
+        "title": "Find Greatest Common Divisor of Array",
+        "diff": "easy"
+      },
+      {
+        "slug": "operations-on-tree",
+        "title": "Operations on Tree",
+        "diff": "medium"
+      },
+      {
+        "slug": "number-of-ways-to-arrive-at-destination",
+        "title": "Number of Ways to Arrive at Destination",
+        "diff": "medium"
+      },
+      {
+        "slug": "concatenation-of-array",
+        "title": "Concatenation of Array",
+        "diff": "easy"
+      },
+      {
+        "slug": "nearest-exit-from-entrance-in-maze",
+        "title": "Nearest Exit from Entrance in Maze",
+        "diff": "medium"
+      },
+      {
+        "slug": "count-sub-islands",
+        "title": "Count Sub Islands",
+        "diff": "medium"
+      },
+      {
+        "slug": "substrings-of-size-three-with-distinct-characters",
+        "title": "Substrings of Size Three with Distinct Characters",
+        "diff": "easy"
+      },
+      {
+        "slug": "recyclable-and-low-fat-products",
+        "title": "Recyclable and Low Fat Products",
+        "diff": "easy"
+      },
+      {
+        "slug": "merge-strings-alternately",
+        "title": "Merge Strings Alternately",
+        "diff": "easy"
+      },
+      {
+        "slug": "check-if-array-is-sorted-and-rotated",
+        "title": "Check if Array Is Sorted and Rotated",
+        "diff": "easy"
+      },
+      {
+        "slug": "find-followers-count",
+        "title": "Find Followers Count",
+        "diff": "easy"
+      },
+      {
+        "slug": "daily-leads-and-partners",
+        "title": "Daily Leads and Partners",
+        "diff": "easy"
+      },
+      {
+        "slug": "find-the-highest-altitude",
+        "title": "Find the Highest Altitude",
+        "diff": "easy"
+      },
+      {
+        "slug": "invalid-tweets",
+        "title": "Invalid Tweets",
+        "diff": "easy"
+      },
+      {
+        "slug": "fix-names-in-a-table",
+        "title": "Fix Names in a Table",
+        "diff": "easy"
+      },
+      {
+        "slug": "percentage-of-users-attended-a-contest",
+        "title": "Percentage of Users Attended a Contest",
+        "diff": "easy"
+      },
+      {
+        "slug": "sort-array-by-increasing-frequency",
+        "title": "Sort Array by Increasing Frequency",
+        "diff": "easy"
+      },
+      {
+        "slug": "crawler-log-folder",
+        "title": "Crawler Log Folder",
+        "diff": "easy"
+      },
+      {
+        "slug": "patients-with-a-condition",
+        "title": "Patients With a Condition",
+        "diff": "easy"
+      },
+      {
+        "slug": "find-users-with-valid-e-mails",
+        "title": "Find Users With Valid E-Mails",
+        "diff": "easy"
+      },
+      {
+        "slug": "detect-cycles-in-2d-grid",
+        "title": "Detect Cycles in 2D Grid",
+        "diff": "medium"
+      },
+      {
+        "slug": "reorder-routes-to-make-all-paths-lead-to-the-city-zero",
+        "title": "Reorder Routes to Make All Paths Lead to the City Zero",
+        "diff": "medium"
+      },
+      {
+        "slug": "maximum-product-of-two-elements-in-an-array",
+        "title": "Maximum Product of Two Elements in an Array",
+        "diff": "easy"
+      },
+      {
+        "slug": "maximum-points-you-can-obtain-from-cards",
+        "title": "Maximum Points You Can Obtain from Cards",
+        "diff": "medium"
+      },
+      {
+        "slug": "stone-game-iii",
+        "title": "Stone Game III",
+        "diff": "hard"
+      },
+      {
+        "slug": "number-of-steps-to-reduce-a-number-in-binary-representation-to-one",
+        "title": "Number of Steps to Reduce a Number in Binary Representation to One",
+        "diff": "medium"
+      },
+      {
+        "slug": "the-k-th-lexicographical-string-of-all-happy-strings-of-length-n",
+        "title": "The k-th Lexicographical String of All Happy Strings of Length n",
+        "diff": "medium"
+      },
+      {
+        "slug": "replace-employee-id-with-the-unique-identifier",
+        "title": "Replace Employee ID With The Unique Identifier",
+        "diff": "easy"
+      },
+      {
+        "slug": "the-k-weakest-rows-in-a-matrix",
+        "title": "The K Weakest Rows in a Matrix",
+        "diff": "easy"
+      },
+      {
+        "slug": "angle-between-hands-of-a-clock",
+        "title": "Angle Between Hands of a Clock",
+        "diff": "medium"
+      },
+      {
+        "slug": "number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold",
+        "title": "Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold",
+        "diff": "medium"
+      },
+      {
+        "slug": "count-servers-that-communicate",
+        "title": "Count Servers that Communicate",
+        "diff": "medium"
+      },
+      {
+        "slug": "shift-2d-grid",
+        "title": "Shift 2D Grid",
+        "diff": "easy"
+      },
+      {
+        "slug": "minimum-remove-to-make-valid-parentheses",
+        "title": "Minimum Remove to Make Valid Parentheses",
+        "diff": "medium"
+      },
+      {
+        "slug": "longest-arithmetic-subsequence-of-given-difference",
+        "title": "Longest Arithmetic Subsequence of Given Difference",
+        "diff": "medium"
+      },
+      {
+        "slug": "path-with-maximum-probability",
+        "title": "Path with Maximum Probability",
+        "diff": "medium"
+      },
+      {
+        "slug": "longest-happy-string",
+        "title": "Longest Happy String",
+        "diff": "medium"
+      },
+      {
+        "slug": "product-price-at-a-given-date",
+        "title": "Product Price at a Given Date",
+        "diff": "medium"
+      },
+      {
+        "slug": "market-analysis-i",
+        "title": "Market Analysis I",
+        "diff": "medium"
+      },
+      {
+        "slug": "article-views-i",
+        "title": "Article Views I",
+        "diff": "easy"
+      },
+      {
+        "slug": "rank-transform-of-an-array",
+        "title": "Rank Transform of an Array",
+        "diff": "easy"
+      },
+      {
+        "slug": "user-activity-for-the-past-30-days-i",
+        "title": "User Activity for the Past 30 Days I",
+        "diff": "easy"
+      },
+      {
+        "slug": "sequential-digits",
+        "title": "Sequential Digits",
+        "diff": "medium"
+      },
+      {
+        "slug": "delete-nodes-and-return-forest",
+        "title": "Delete Nodes And Return Forest",
+        "diff": "medium"
+      },
+      {
+        "slug": "find-in-mountain-array",
+        "title": "Find in Mountain Array",
+        "diff": "hard"
+      },
+      {
+        "slug": "product-sales-analysis-iii",
+        "title": "Product Sales Analysis III",
+        "diff": "medium"
+      },
+      {
+        "slug": "actors-and-directors-who-cooperated-at-least-three-times",
+        "title": "Actors and Directors Who Cooperated At Least Three Times",
+        "diff": "easy"
+      },
+      {
+        "slug": "customers-who-bought-all-products",
+        "title": "Customers Who Bought All Products",
+        "diff": "medium"
+      },
+      {
+        "slug": "as-far-from-land-as-possible",
+        "title": "As Far from Land as Possible",
+        "diff": "medium"
+      },
+      {
+        "slug": "sum-of-root-to-leaf-binary-numbers",
+        "title": "Sum of Root To Leaf Binary Numbers",
+        "diff": "easy"
+      },
+      {
+        "slug": "number-of-enclaves",
+        "title": "Number of Enclaves",
+        "diff": "medium"
+      },
+      {
+        "slug": "lexicographically-smallest-equivalent-string",
+        "title": "Lexicographically Smallest Equivalent String",
+        "diff": "medium"
+      },
+      {
+        "slug": "find-the-town-judge",
+        "title": "Find the Town Judge",
+        "diff": "easy"
+      },
+      {
+        "slug": "verifying-an-alien-dictionary",
+        "title": "Verifying an Alien Dictionary",
+        "diff": "easy"
+      },
+      {
+        "slug": "bag-of-tokens",
+        "title": "Bag of Tokens",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-add-to-make-parentheses-valid",
+        "title": "Minimum Add to Make Parentheses Valid",
+        "diff": "medium"
+      },
+      {
+        "slug": "snakes-and-ladders",
+        "title": "Snakes and Ladders",
+        "diff": "medium"
+      },
+      {
+        "slug": "sort-array-by-parity",
+        "title": "Sort Array By Parity",
+        "diff": "easy"
+      },
+      {
+        "slug": "all-nodes-distance-k-in-binary-tree",
+        "title": "All Nodes Distance K in Binary Tree",
+        "diff": "medium"
+      },
+      {
+        "slug": "car-fleet",
+        "title": "Car Fleet",
+        "diff": "medium"
+      },
+      {
+        "slug": "peak-index-in-a-mountain-array",
+        "title": "Peak Index in a Mountain Array",
+        "diff": "medium"
+      },
+      {
+        "slug": "hand-of-straights",
+        "title": "Hand of Straights",
+        "diff": "medium"
+      },
+      {
+        "slug": "keys-and-rooms",
+        "title": "Keys and Rooms",
+        "diff": "medium"
+      },
+      {
+        "slug": "rotate-string",
+        "title": "Rotate String",
+        "diff": "easy"
+      },
+      {
+        "slug": "domino-and-tromino-tiling",
+        "title": "Domino and Tromino Tiling",
+        "diff": "medium"
+      },
+      {
+        "slug": "search-in-a-binary-search-tree",
+        "title": "Search in a Binary Search Tree",
+        "diff": "easy"
+      },
+      {
+        "slug": "repeated-string-match",
+        "title": "Repeated String Match",
+        "diff": "medium"
+      },
+      {
+        "slug": "longest-continuous-increasing-subsequence",
+        "title": "Longest Continuous Increasing Subsequence",
+        "diff": "easy"
+      },
+      {
+        "slug": "maximum-swap",
+        "title": "Maximum Swap",
+        "diff": "medium"
+      },
+      {
+        "slug": "trim-a-binary-search-tree",
+        "title": "Trim a Binary Search Tree",
+        "diff": "medium"
+      },
+      {
+        "slug": "robot-return-to-origin",
+        "title": "Robot Return to Origin",
+        "diff": "easy"
+      },
+      {
+        "slug": "maximum-product-of-three-numbers",
+        "title": "Maximum Product of Three Numbers",
+        "diff": "easy"
+      },
+      {
+        "slug": "swap-sex-of-employees",
+        "title": "Swap Sex of Employees",
+        "diff": "easy"
+      },
+      {
+        "slug": "exchange-seats",
+        "title": "Exchange Seats",
+        "diff": "medium"
+      },
+      {
+        "slug": "not-boring-movies",
+        "title": "Not Boring Movies",
+        "diff": "easy"
+      },
+      {
+        "slug": "biggest-single-number",
+        "title": "Biggest Single Number",
+        "diff": "easy"
+      },
+      {
+        "slug": "classes-with-at-least-5-students",
+        "title": "Classes With at Least 5 Students",
+        "diff": "easy"
+      },
+      {
+        "slug": "big-countries",
+        "title": "Big Countries",
+        "diff": "easy"
+      },
+      {
+        "slug": "find-customer-referee",
+        "title": "Find Customer Referee",
+        "diff": "easy"
+      },
+      {
+        "slug": "delete-operation-for-two-strings",
+        "title": "Delete Operation for Two Strings",
+        "diff": "medium"
+      },
+      {
+        "slug": "employee-bonus",
+        "title": "Employee Bonus",
+        "diff": "easy"
+      },
+      {
+        "slug": "distribute-candies",
+        "title": "Distribute Candies",
+        "diff": "easy"
+      },
+      {
+        "slug": "managers-with-at-least-5-direct-reports",
+        "title": "Managers with at Least 5 Direct Reports",
+        "diff": "medium"
+      },
+      {
+        "slug": "reshape-the-matrix",
+        "title": "Reshape the Matrix",
+        "diff": "easy"
+      },
+      {
+        "slug": "relative-ranks",
+        "title": "Relative Ranks",
+        "diff": "easy"
+      },
+      {
+        "slug": "predict-the-winner",
+        "title": "Predict the Winner",
+        "diff": "medium"
+      },
+      {
+        "slug": "max-consecutive-ones",
+        "title": "Max Consecutive Ones",
+        "diff": "easy"
+      },
+      {
+        "slug": "island-perimeter",
+        "title": "Island Perimeter",
+        "diff": "easy"
+      },
+      {
+        "slug": "add-two-numbers-ii",
+        "title": "Add Two Numbers II",
+        "diff": "medium"
+      },
+      {
+        "slug": "minimum-genetic-mutation",
+        "title": "Minimum Genetic Mutation",
+        "diff": "medium"
+      },
+      {
+        "slug": "sum-of-left-leaves",
+        "title": "Sum of Left Leaves",
+        "diff": "easy"
+      },
+      {
+        "slug": "find-the-difference",
+        "title": "Find the Difference",
+        "diff": "easy"
+      },
+      {
+        "slug": "odd-even-linked-list",
+        "title": "Odd Even Linked List",
+        "diff": "medium"
+      },
+      {
+        "slug": "power-of-three",
+        "title": "Power of Three",
+        "diff": "easy"
+      },
+      {
+        "slug": "trips-and-users",
+        "title": "Trips and Users",
+        "diff": "hard"
+      },
+      {
+        "slug": "binary-tree-paths",
+        "title": "Binary Tree Paths",
+        "diff": "easy"
+      },
+      {
+        "slug": "implement-stack-using-queues",
+        "title": "Implement Stack using Queues",
+        "diff": "easy"
+      },
+      {
+        "slug": "minimum-size-subarray-sum",
+        "title": "Minimum Size Subarray Sum",
+        "diff": "medium"
+      },
+      {
+        "slug": "remove-linked-list-elements",
+        "title": "Remove Linked List Elements",
+        "diff": "easy"
+      },
+      {
+        "slug": "rising-temperature",
+        "title": "Rising Temperature",
+        "diff": "easy"
+      },
+      {
+        "slug": "valid-phone-numbers",
+        "title": "Valid Phone Numbers",
+        "diff": "easy"
+      },
+      {
+        "slug": "rotate-array",
+        "title": "Rotate Array",
+        "diff": "medium"
+      },
+      {
+        "slug": "department-top-three-salaries",
+        "title": "Department Top Three Salaries",
+        "diff": "hard"
+      },
+      {
+        "slug": "department-highest-salary",
+        "title": "Department Highest Salary",
+        "diff": "medium"
+      },
+      {
+        "slug": "customers-who-never-order",
+        "title": "Customers Who Never Order",
+        "diff": "easy"
+      },
+      {
+        "slug": "duplicate-emails",
+        "title": "Duplicate Emails",
+        "diff": "easy"
+      },
+      {
+        "slug": "employees-earning-more-than-their-managers",
+        "title": "Employees Earning More Than Their Managers",
+        "diff": "easy"
+      },
+      {
+        "slug": "consecutive-numbers",
+        "title": "Consecutive Numbers",
+        "diff": "medium"
+      },
+      {
+        "slug": "rank-scores",
+        "title": "Rank Scores",
+        "diff": "medium"
+      },
+      {
+        "slug": "nth-highest-salary",
+        "title": "Nth Highest Salary",
+        "diff": "medium"
+      },
+      {
+        "slug": "second-highest-salary",
+        "title": "Second Highest Salary",
+        "diff": "medium"
+      },
+      {
+        "slug": "combine-two-tables",
+        "title": "Combine Two Tables",
+        "diff": "easy"
+      },
+      {
+        "slug": "majority-element",
+        "title": "Majority Element",
+        "diff": "easy"
+      },
+      {
+        "slug": "intersection-of-two-linked-lists",
+        "title": "Intersection of Two Linked Lists",
+        "diff": "easy"
+      },
+      {
+        "slug": "lru-cache",
+        "title": "LRU Cache",
+        "diff": "medium"
+      },
+      {
+        "slug": "copy-list-with-random-pointer",
+        "title": "Copy List with Random Pointer",
+        "diff": "medium"
+      },
+      {
+        "slug": "surrounded-regions",
+        "title": "Surrounded Regions",
+        "diff": "medium"
+      },
+      {
+        "slug": "word-ladder",
+        "title": "Word Ladder",
+        "diff": "hard"
+      },
+      {
+        "slug": "path-sum",
+        "title": "Path Sum",
+        "diff": "easy"
+      },
+      {
+        "slug": "minimum-depth-of-binary-tree",
+        "title": "Minimum Depth of Binary Tree",
+        "diff": "easy"
+      },
+      {
+        "slug": "convert-sorted-list-to-binary-search-tree",
+        "title": "Convert Sorted List to Binary Search Tree",
+        "diff": "medium"
+      },
+      {
+        "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+        "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+        "diff": "medium"
+      },
+      {
+        "slug": "recover-binary-search-tree",
+        "title": "Recover Binary Search Tree",
+        "diff": "medium"
+      },
+      {
+        "slug": "partition-list",
+        "title": "Partition List",
+        "diff": "medium"
+      },
+      {
+        "slug": "largest-rectangle-in-histogram",
+        "title": "Largest Rectangle in Histogram",
+        "diff": "hard"
+      },
+      {
+        "slug": "remove-duplicates-from-sorted-list",
+        "title": "Remove Duplicates from Sorted List",
+        "diff": "easy"
+      },
+      {
+        "slug": "remove-duplicates-from-sorted-list-ii",
+        "title": "Remove Duplicates from Sorted List II",
+        "diff": "medium"
+      },
+      {
+        "slug": "remove-duplicates-from-sorted-array-ii",
+        "title": "Remove Duplicates from Sorted Array II",
+        "diff": "medium"
+      },
+      {
+        "slug": "rotate-list",
+        "title": "Rotate List",
+        "diff": "medium"
+      },
+      {
+        "slug": "length-of-last-word",
+        "title": "Length of Last Word",
+        "diff": "easy"
+      },
+      {
+        "slug": "valid-sudoku",
+        "title": "Valid Sudoku",
+        "diff": "medium"
+      },
+      {
+        "slug": "next-permutation",
+        "title": "Next Permutation",
+        "diff": "medium"
+      },
+      {
+        "slug": "palindrome-number",
+        "title": "Palindrome Number",
+        "diff": "easy"
+      },
+      {
+        "slug": "string-to-integer-atoi",
+        "title": "String to Integer (atoi)",
+        "diff": "medium"
+      },
+      {
+        "slug": "reverse-integer",
+        "title": "Reverse Integer",
+        "diff": "medium"
+      }
+    ],
+    "coverage": 78
+  },
+  "note": "reconcile is upgrade-only: it promotes not-attempted -> mastered and never overwrites a coach-set status. `conflicts` are LeetCode accepts on questions the sheet has as failed/revision — solved eventually, but not under the cap."
+}
